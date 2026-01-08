@@ -4,7 +4,7 @@
 
 > Репозиторий для выполнения лабораторных работ в рамках курса "Программирование на основе классов и шаблонов" кафедры ИУ5.
 >
->https://fitoliaka.github.io/OOP/
+> https://fitoliaka.github.io/OOP/
 
  - Лабораторные работы
 	 - [Лабораторная работа 1](https://fitoliaka.github.io/IU5/CPP/meta/lab_1.html)
