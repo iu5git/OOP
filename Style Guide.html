@@ -4,80 +4,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Style Guide</title>
+  <title>Style Guide.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="bmstu-cs-style-guide----omit-in-toc---">BMSTU CS Style Guide <!-- omit in toc --></h1>
+  <div class="stackedit__html"><blockquote>
+<p><em>Попытка использовать любой инструмент, не разобравшись хотя бы в основах того, что он делает и как его<br>
+следует использовать, скорее всего, приведет к разочарованию. С другой стороны, если потратить все свое<br>
+время на изучение теории о чем-то без практического применения, это будет довольно скучным занятием и<br>
+часто приводит к слишком идеалистическому пониманию.</em><br>
+© 2018 Крейг Скотт</p>
+</blockquote>
+<h1 id="bmstu-cs-style-guide----omit-in-toc---">BMSTU CS Style Guide <!-- omit in toc --></h1>
 <blockquote>
 <p>Стайл гайд и общий список советов при написании кода на C++ для студентов курса “Программирование на основе классов и шабллонов” кафедры ИУ5 МГТУ им. Н.Э. Баумана.</p>
 </blockquote>
 <h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
 <ul>
-<li>
-<p><a href="#%D0%BE%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0">Общие правила</a></p>
-</li>
-<li>
-<p><a href="#stl-%D0%B8-%D0%BE%D0%BE%D0%BF">STL и ООП</a></p>
-</li>
-<li>
-<p><a href="#%D0%BA%D0%BE%D0%BC%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8F">Компиляция</a></p>
-</li>
-<li>
-<p><a href="#dry">DRY</a></p>
-</li>
-<li>
-<p><a href="#kiss">KISS</a></p>
-</li>
-<li>
-<p><a href="#%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B8-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8">Статические и динамические библиотеки</a></p>
-</li>
+<li><a href="#%D0%BE%D0%B1%D1%89%D0%B8%D0%B5-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0">Общие правила</a></li>
+<li><a href="#stl-%D0%B8-%D0%BE%D0%BE%D0%BF">STL и ООП</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BC%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8F">Компиляция</a></li>
+<li><a href="#dry">DRY</a></li>
+<li><a href="#kiss">KISS</a></li>
+<li><a href="#%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B8-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8">Статические и динамические библиотеки</a>
 <ul>
-<li>
-<p><a href="#%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0"><em>Статическая библиотека</em></a></p>
-</li>
-<li>
-<p><a href="#%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0"><em>Динамическая библиотека</em></a></p>
-</li>
-<li>
-<p><a href="#%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82%D0%B0"><em>Библиотеки импорта</em></a></p>
-</li>
-<li>
-<p><a href="#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B8-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA">Установка и использование библиотек</a></p>
-</li>
-<li>
-<p><a href="#%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8-%D0%B2-c-%D0%BE%D0%B1%D1%8B%D1%87%D0%BD%D0%BE-%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82-4-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D1%85-%D1%88%D0%B0%D0%B3%D0%B0"><em>Использование библиотеки в C++</em> обычно включает 4 основных шага:</a></p>
-</li>
-<li>
-<p><a href="#%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8-%D0%B2-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B5"><em>Использование библиотеки в проекте</em></a></p>
-</li>
+<li><a href="#%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0"><em>Статическая библиотека</em></a></li>
+<li><a href="#%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0"><em>Динамическая библиотека</em></a></li>
+<li><a href="#%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8-%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82%D0%B0"><em>Библиотеки импорта</em></a></li>
+<li><a href="#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B8-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA">Установка и использование библиотек</a></li>
 </ul>
-<li>
-<p><a href="#%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9">Разработка кроссплатформенных приложений</a></p>
 </li>
+<li><a href="#%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9">Разработка кроссплатформенных приложений</a></li>
 </ul>
-<h2 id="общие-правила">Общие правила</h2>
+<h3 id="общие-правила">Общие правила</h3>
 <blockquote>
 <p>Общие правила были описаны в <a href="https://fitoliaka.github.io/IU5/CPP/Style%20Guide.html">Style Guade</a> в 1 семестре.</p>
 </blockquote>
 <p>напомним:</p>
-<p>Независимо от ваших предпочтений, следование данному <code>Style Guade</code>  <strong>абсолютно обязательно</strong>.</p>
-<p>В названиях должен быть использован грамотный английский язык.</p>
+<p>Независимо от ваших предпочтений, следование данному <code>Style Guade</code> <strong>абсолютно обязательно</strong>.<br>
+В названиях должен быть использован грамотный английский язык.</p>
+<hr>
 <h3 id="stl-и-ооп">STL и ООП</h3>
-<p>Использование элементов <strong>ООП</strong> постепенно будет доступно для использования. Уточняйте у ваших преподавателей с какими контейнерами и классами стандартных библиотек в каких лабораторных можно использовать.</p>
+<p>Использование элементов <strong>ООП</strong>  постепенно будет доступно для использования. Уточняйте у ваших преподавателей с какими контейнерами и классами стандартных библиотек в каких лабораторных можно использовать.</p>
+<hr>
 <h3 id="компиляция">Компиляция</h3>
 <p>Любая компиляция исходного кода должна сопровождаться флагами <em>-Wall</em>, <em>-Wextra</em>, <em>-Werror</em> и -<em>Wpedantic</em>.</p>
 <p>Благодаря этим флагам компилятор интерпретирует предупреждения как ошибки компиляции, что заставляет писать более аккуратный и безопасный код.</p>
+<hr>
 <h3 id="dry">DRY</h3>
 <p><strong>DRY</strong> - Don’t Repeat Yourself. Принцип разработки, согласно которому следует избегать дублирование кода в приложении.</p>
 <p>Старайтесь грамотно декомпозировать код на отдельные функции, которые затем можно переиспользовать в разных местах.</p>
 <p>Если какая-то часть функциональности повторяется в разных местах - это повод вынести ее в отдельную функцию. В таком случае, если понадобится внести изменения, то их достаточно будет применить в одном месте, вместо нескольких. Это уменьшает вероятность появления ошибки и упрощает разработку.</p>
 <p>Следует внимательно относится к данному принципу и не следовать ему слишком фанатично, так как это может привести к усилению <a href="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D1%86%D0%B5%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)">зацепления</a>.</p>
+<hr>
 <h3 id="kiss">KISS</h3>
 <p><strong>KISS</strong> - Keep It Simple, Stupid. Принцип разработки, согласно которому следует предпочитать простые конструкции сложным.</p>
 <p>По возможности избегайте неоправданного усложнения кода и пишите такой код, который будет понятен постороннему человеку, находящемуся вне контекста.</p>
-<h2 id="статические-и-динамические-библиотеки">Статические и динамические библиотеки</h2>
+<hr>
+<h3 id="статические-и-динамические-библиотеки">Статические и динамические библиотеки</h3>
 <p><code>Библиотека</code> — это набор кода для повторного использования в разных программах. Обычно библиотека C++ состоит из:</p>
 <ul>
 <li>
@@ -90,46 +75,30 @@
 <p>Библиотеки компилируются заранее, чтобы экономить время и защищать исходный код.</p>
 <p>Существуют <strong>два типа библиотек</strong>: статические и динамические.</p>
 <h4 id="статическая-библиотека"><em>Статическая библиотека</em></h4>
-<p>Статическая библиотека подключается к программе во время компиляции и становится частью исполняемого файла.</p>
-<p>Расширения: <code>.lib</code> (Windows), <code>.a</code> (Linux).</p>
+<p>Статическая библиотека подключается к программе во время компиляции и становится частью исполняемого файла.<br>
+Расширения: <code>.lib</code> (Windows), <code>.a</code> (Linux).</p>
 <p>Плюсы:</p>
 <ul>
-<li>
-<p>нужен только один исполняемый файл;</p>
-</li>
-<li>
-<p>всегда используется нужная версия библиотеки.</p>
-</li>
+<li>нужен только один исполняемый файл;</li>
+<li>всегда используется нужная версия библиотеки.</li>
 </ul>
 <p>Минусы:</p>
 <ul>
-<li>
-<p>увеличивает размер программы;</p>
-</li>
-<li>
-<p>для обновления библиотеки нужно пересобирать приложение.</p>
-</li>
+<li>увеличивает размер программы;</li>
+<li>для обновления библиотеки нужно пересобирать приложение.</li>
 </ul>
 <h4 id="динамическая-библиотека"><em>Динамическая библиотека</em></h4>
-<p>Динамическая библиотека загружается во время выполнения и остаётся отдельным файлом.</p>
-<p>Расширения: <code>.dll</code> (Windows), <code>.so</code> (Linux).</p>
+<p>Динамическая библиотека загружается во время выполнения и остаётся отдельным файлом.<br>
+Расширения: <code>.dll</code> (Windows), <code>.so</code> (Linux).</p>
 <p>Плюсы:</p>
 <ul>
-<li>
-<p>несколько программ могут использовать одну библиотеку;</p>
-</li>
-<li>
-<p>библиотеку можно обновлять без пересборки программ.</p>
-</li>
+<li>несколько программ могут использовать одну библиотеку;</li>
+<li>библиотеку можно обновлять без пересборки программ.</li>
 </ul>
 <p>Минусы:</p>
 <ul>
-<li>
-<p>сложнее в использовании;</p>
-</li>
-<li>
-<p>требуется механизм загрузки и подключения.</p>
-</li>
+<li>сложнее в использовании;</li>
+<li>требуется механизм загрузки и подключения.</li>
 </ul>
 <p>Для упрощения работы с динамическими библиотеками используются <code>библиотеки импорта</code>, которые позволяют работать с ними почти так же, как со статическими.</p>
 <h4 id="библиотеки-импорта"><em>Библиотеки импорта</em></h4>
@@ -138,18 +107,12 @@
 <p>В Linux файл <code>.so</code> одновременно выполняет роль динамической библиотеки и библиотеки импорта.</p>
 <p>Назначение библиотеки импорта:</p>
 <ul>
-<li>
-<p>автоматизирует загрузку динамической библиотеки;</p>
-</li>
-<li>
-<p>позволяет использовать функции динамической библиотеки так же, как статической;</p>
-</li>
-<li>
-<p>упрощает компоновку и работу с динамическими библиотеками.</p>
-</li>
+<li>автоматизирует загрузку динамической библиотеки;</li>
+<li>позволяет использовать функции динамической библиотеки так же, как статической;</li>
+<li>упрощает компоновку и работу с динамическими библиотеками.</li>
 </ul>
-<h3 id="установка-и-использование-библиотек">Установка и использование библиотек</h3>
-<h4 id="использование-библиотеки-в-c-обычно-включает-4-основных-шага"><em>Использование библиотеки в C++</em> обычно включает 4 основных шага:</h4>
+<h4 id="установка-и-использование-библиотек">Установка и использование библиотек</h4>
+<p><em><strong>Использование библиотеки в C++</strong></em> обычно включает 4 основных шага:</p>
 <ol>
 <li>
 <p><strong>Получить библиотеку</strong> Желательно скачать готовую (скомпилированную) версию для вашей ОС. В Linux — через менеджеры пакетов, в Windows библиотеки часто распространяются как ZIP-архивы.</p>
@@ -164,7 +127,7 @@
 <p><strong>Указать компоновщику путь к файлам библиотеки</strong> Обычно это каталог <code>lib</code>. В Linux стандартный путь — <code>/usr/lib</code>.</p>
 </li>
 </ol>
-<h4 id="использование-библиотеки-в-проекте"><em>Использование библиотеки в проекте</em></h4>
+<p><em><strong>Использование библиотеки в проекте</strong></em></p>
 <p>Для каждого проекта необходимо:</p>
 <ol>
 <li>
@@ -177,7 +140,229 @@
 <p><strong>Обеспечить доступ к динамическим библиотекам</strong> В Linux — через стандартные пути или переменную <code>LD_LIBRARY_PATH</code>. В Windows — проще всего разместить .dll рядом с исполняемым файлом.</p>
 </li>
 </ol>
-<h2 id="разработка-кроссплатформенных-приложений">Разработка кроссплатформенных приложений</h2>
+<hr>
+<h3 id="разработка-кроссплатформенных-приложений">Разработка кроссплатформенных приложений</h3>
+<p>Разработка программного обеспечения требует множества инструментов: компиляторов, сборщиков, тестовых фреймворков и систем упаковки. Кроссплатформенные проекты усложняют этот процесс, так как не всегда можно использовать интегрированные среды разработки вроде Xcode или Visual Studio.</p>
+<p>CMake облегчает работу, объединяя настройку, сборку, тестирование и упаковку в едином инструменте. Он генерирует файлы проекта для выбранной платформы и инструмента сборки, а встроенные CTest и CPack позволяют автоматизировать тестирование и создание пакетов. Все этапы управления сборкой можно выполнять напрямую через CMake.</p>
+<p>Перед использованием следует установить актуальную версию CMake — многие платформы поставляют устаревшие версии через менеджеры пакетов.</p>
+<ol>
+<li><em><strong>Что такое CMake</strong></em></li>
+</ol>
+<p>CMake — это <strong>генератор систем сборки</strong>, а не компилятор.</p>
+<pre><code>CMakeLists.txt
+   ↓ (configure)
+CMake
+   ↓ (generate)
+Makefiles / Ninja / Visual Studio / Xcode
+   ↓
+Компилятор (gcc / clang / MSVC)
+</code></pre>
+<p>CMake позволяет описать проект <strong>один раз</strong> и собирать его на разных платформах.</p>
+<ol start="2">
+<li><em><strong>In-source и Out-of-source сборка</strong></em></li>
+</ol>
+<pre class=" language-bash"><code class="prism  language-bash">cmake <span class="token keyword">.</span>
+<span class="token function">make</span>
+</code></pre>
+<p>bad</p>
+<pre class=" language-bash"><code class="prism  language-bash">cmake -S <span class="token keyword">.</span> -B build
+cmake --build build
+</code></pre>
+<p>ok</p>
+<p>Преимущества out-of-source:</p>
+<ul>
+<li>чистые исходники</li>
+<li>несколько конфигураций</li>
+<li>простая очистка</li>
+</ul>
+<ol start="3">
+<li><em><strong>Язык CMake. Синтаксис</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">command(ARG1 ARG2 ...)
+</code></pre>
+<p>Особенности:</p>
+<ul>
+<li>регистр не важен</li>
+<li>комментарии начинаются с #</li>
+<li>всё — строки</li>
+</ul>
+<ol start="4">
+<li><em><strong>Переменные</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(MY_VAR "hello")
+message(STATUS "${MY_VAR}")
+</code></pre>
+<p>Проверка:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">if(DEFINED MY_VAR)
+endif()
+</code></pre>
+<ol start="5">
+<li><em><strong>Списки</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(SOURCES a.cpp b.cpp c.cpp)
+add_executable(app ${SOURCES})
+</code></pre>
+<ol start="6">
+<li><em><strong>Targets — основа CMake</strong></em></li>
+</ol>
+<p>Target — это логическая единица сборки:</p>
+<ul>
+<li>исполняемый файл</li>
+<li>библиотека</li>
+<li>интерфейсная библиотека</li>
+</ul>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_executable(app main.cpp)
+add_library(mylib src.cpp)
+</code></pre>
+<ol start="7">
+<li><em><strong>Области видимости</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_include_directories(mylib
+    PUBLIC include
+    PRIVATE src
+)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Ключ</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIVATE</td>
+<td>только цель</td>
+</tr>
+<tr>
+<td>PUBLIC</td>
+<td>цель + потребители</td>
+</tr>
+<tr>
+<td>INTERFACE</td>
+<td>только потребители</td>
+</tr>
+</tbody>
+</table><ol start="8">
+<li><em><strong>Стандарт C++</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(CMAKE_CXX_STANDARD 20)
+</code></pre>
+<p>bad</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_compile_features(app PRIVATE cxx_std_20)
+</code></pre>
+<p>ok</p>
+<ol start="9">
+<li><em><strong>Библиотеки</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_library(static_lib STATIC src.cpp)
+add_library(shared_lib SHARED src.cpp)
+add_library(header_only INTERFACE)
+</code></pre>
+<ol start="10">
+<li><em><strong>Линковка</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE mylib)
+</code></pre>
+<p>CMake автоматически передаёт include-директории, флаги и определения.</p>
+<ol start="11">
+<li><em><strong>Структура проекта</strong></em></li>
+</ol>
+<pre><code>project/
+├── CMakeLists.txt
+├── src/
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── include/
+├── tests/
+│   └── CMakeLists.txt
+</code></pre>
+<p>Корневой <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
+project(MyProject LANGUAGES CXX)
+
+add_subdirectory(src)
+add_subdirectory(tests)
+</code></pre>
+<ol start="12">
+<li><em><strong>Внешние зависимости FetchContent</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">include(FetchContent)
+
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG 10.2.1
+)
+
+FetchContent_MakeAvailable(fmt)
+</code></pre>
+<p>Использование:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE fmt::fmt)
+</code></pre>
+<ol start="13">
+<li><em><strong>Тестирование CTest</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">enable_testing()
+add_executable(test1 test.cpp)
+add_test(NAME unit COMMAND test1)
+</code></pre>
+<p>Запуск:</p>
+<pre class=" language-bash"><code class="prism  language-bash">ctest --test-dir build
+</code></pre>
+<ol start="14">
+<li><em><strong>Пользовательские опции</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">option(ENABLE_WARNINGS "Enable warnings" ON)
+
+if(ENABLE_WARNINGS)
+    target_compile_options(app PRIVATE -Wall -Wextra)
+endif()
+</code></pre>
+<ol start="15">
+<li><em><strong>install и find_package</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">install(TARGETS mylib EXPORT MyLibTargets)
+install(DIRECTORY include/ DESTINATION include)
+</code></pre>
+<ol start="16">
+<li><em><strong>CMakePresets.json</strong></em></li>
+</ol>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+  <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token string">"configurePresets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"generator"</span><span class="token punctuation">:</span> <span class="token string">"Ninja"</span><span class="token punctuation">,</span>
+      <span class="token string">"binaryDir"</span><span class="token punctuation">:</span> <span class="token string">"build/debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"cacheVariables"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"CMAKE_BUILD_TYPE"</span><span class="token punctuation">:</span> <span class="token string">"Debug"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="17">
+<li><em><strong>Минимальный шаблон</strong></em></li>
+</ol>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
+project(App LANGUAGES CXX)
+
+add_executable(app src/main.cpp)
+
+target_compile_features(app PRIVATE cxx_std_23)
+target_compile_options(app PRIVATE -Wall -Wextra)
+</code></pre>
+<p><em><strong>Рекомендации по изучению</strong></em></p>
+<ol>
+<li>Всегда думать в терминах targets</li>
+<li>Использовать CMake</li>
+<li>Читать чужие проекты</li>
+<li>Использовать CMakePresets</li>
+<li>Не копировать устаревшие примеры</li>
+</ol>
+<hr>
 </div>
 </body>
 
