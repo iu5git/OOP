@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theoretical on CMake.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><blockquote>
+<p>Теоретические сведения по C++ для студентов курса “Программирование на основе классов и шабллонов” кафедры ИУ5 МГТУ им. Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9">Разработка кроссплатформенных приложений</a>
+<ul>
+<li><a href="#1-%D1%87%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-cmake">1. Что такое CMake</a></li>
+<li><a href="#2-in-source-%D0%B8-out-of-source-%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0">2. In-source и Out-of-source сборка</a></li>
+<li><a href="#3-%D1%8F%D0%B7%D1%8B%D0%BA-cmake-%D1%81%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81">3. Язык CMake. Синтаксис</a></li>
+<li><a href="#4-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5">4. Переменные</a></li>
+<li><a href="#5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B8">5. Списки</a></li>
+<li><a href="#6-targets--%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0-cmake">6. Targets — основа CMake</a></li>
+<li><a href="#7-%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8-%D0%B2%D0%B8%D0%B4%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8">7. Области видимости</a></li>
+<li><a href="#8-%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82-c">8. Стандарт C++</a></li>
+<li><a href="#9-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8">9. Библиотеки</a></li>
+<li><a href="#10-%D0%BB%D0%B8%D0%BD%D0%BA%D0%BE%D0%B2%D0%BA%D0%B0">10. Линковка</a></li>
+<li><a href="#11-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0">11. Структура проекта</a></li>
+<li><a href="#12-%D0%B2%D0%BD%D0%B5%D1%88%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-fetchcontent">12. Внешние зависимости FetchContent</a></li>
+<li><a href="#13-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-ctest">13. Тестирование CTest</a></li>
+<li><a href="#14-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B5-%D0%BE%D0%BF%D1%86%D0%B8%D0%B8">14. Пользовательские опции</a></li>
+<li><a href="#15-install-%D0%B8-find_package">15. install и find_package</a></li>
+<li><a href="#16-cmakepresetsjson">16. CMakePresets.json</a></li>
+<li><a href="#17-%D0%BC%D0%B8%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD">17. Минимальный шаблон</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="разработка-кроссплатформенных-приложений">Разработка кроссплатформенных приложений</h3>
+<p>Разработка программного обеспечения требует множества инструментов: компиляторов, сборщиков, тестовых фреймворков и систем упаковки. Кроссплатформенные проекты усложняют этот процесс, так как не всегда можно использовать интегрированные среды разработки вроде Xcode или Visual Studio.</p>
+<p>CMake облегчает работу, объединяя настройку, сборку, тестирование и упаковку в едином инструменте. Он генерирует файлы проекта для выбранной платформы и инструмента сборки, а встроенные CTest и CPack позволяют автоматизировать тестирование и создание пакетов. Все этапы управления сборкой можно выполнять напрямую через CMake.</p>
+<p>Перед использованием следует установить актуальную версию CMake — многие платформы поставляют устаревшие версии через менеджеры пакетов.</p>
+<h4 id="что-такое-cmake">1. Что такое CMake</h4>
+<p>CMake — это <strong>генератор систем сборки</strong>, а не компилятор.</p>
+<pre><code>CMakeLists.txt
+   ↓ (configure)
+CMake
+   ↓ (generate)
+Makefiles / Ninja / Visual Studio / Xcode
+   ↓
+Компилятор (gcc / clang / MSVC)
+</code></pre>
+<p>CMake позволяет описать проект <strong>один раз</strong> и собирать его на разных платформах.</p>
+<h4 id="in-source-и-out-of-source-сборка">2. In-source и Out-of-source сборка</h4>
+<pre class=" language-bash"><code class="prism  language-bash">cmake <span class="token keyword">.</span>
+<span class="token function">make</span>
+</code></pre>
+<p>bad</p>
+<pre class=" language-bash"><code class="prism  language-bash">cmake -S <span class="token keyword">.</span> -B build
+cmake --build build
+</code></pre>
+<p>ok</p>
+<p>Преимущества out-of-source:</p>
+<ul>
+<li>чистые исходники</li>
+<li>несколько конфигураций</li>
+<li>простая очистка</li>
+</ul>
+<h4 id="язык-cmake.-синтаксис">3. Язык CMake. Синтаксис</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">command(ARG1 ARG2 ...)
+</code></pre>
+<p>Особенности:</p>
+<ul>
+<li>регистр не важен</li>
+<li>комментарии начинаются с #</li>
+<li>всё — строки</li>
+</ul>
+<h4 id="переменные">4. Переменные</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(MY_VAR "hello")
+message(STATUS "${MY_VAR}")
+</code></pre>
+<p>Проверка:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">if(DEFINED MY_VAR)
+endif()
+</code></pre>
+<h4 id="списки">5. Списки</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(SOURCES a.cpp b.cpp c.cpp)
+add_executable(app ${SOURCES})
+</code></pre>
+<h4 id="targets-—-основа-cmake">6. Targets — основа CMake</h4>
+<p>Target — это логическая единица сборки (цель):</p>
+<ul>
+<li>исполняемый файл</li>
+<li>библиотека</li>
+<li>интерфейсная библиотека</li>
+</ul>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_executable(app main.cpp)
+add_library(mylib src.cpp)
+</code></pre>
+<h4 id="области-видимости">7. Области видимости</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_include_directories(mylib
+    PUBLIC include
+    PRIVATE src
+)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Ключ</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIVATE</td>
+<td>только цель</td>
+</tr>
+<tr>
+<td>PUBLIC</td>
+<td>цель + потребители</td>
+</tr>
+<tr>
+<td>INTERFACE</td>
+<td>только потребители</td>
+</tr>
+</tbody>
+</table><h4 id="стандарт-c">8. Стандарт C++</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(CMAKE_CXX_STANDARD 20)
+</code></pre>
+<p>bad</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_compile_features(app PRIVATE cxx_std_20)
+</code></pre>
+<p>ok</p>
+<h4 id="библиотеки">9. Библиотеки</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_library(static_lib STATIC src.cpp)
+add_library(shared_lib SHARED src.cpp)
+add_library(header_only INTERFACE)
+</code></pre>
+<h4 id="линковка">10. Линковка</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE mylib)
+</code></pre>
+<p>CMake автоматически передаёт include-директории, флаги и определения.</p>
+<h4 id="структура-проекта">11. Структура проекта</h4>
+<pre><code>project/
+├── CMakeLists.txt
+├── src/
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── include/
+├── tests/
+│   └── CMakeLists.txt
+</code></pre>
+<p>Корневой <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
+project(MyProject LANGUAGES CXX)
+
+add_subdirectory(src)
+add_subdirectory(tests)
+</code></pre>
+<h4 id="внешние-зависимости-fetchcontent">12. Внешние зависимости FetchContent</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">include(FetchContent)
+
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG 10.2.1
+)
+
+FetchContent_MakeAvailable(fmt)
+</code></pre>
+<p>Использование:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE fmt::fmt)
+</code></pre>
+<h4 id="тестирование-ctest">13. Тестирование CTest</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">enable_testing()
+add_executable(test1 test.cpp)
+add_test(NAME unit COMMAND test1)
+</code></pre>
+<p>Запуск:</p>
+<pre class=" language-bash"><code class="prism  language-bash">ctest --test-dir build
+</code></pre>
+<h4 id="пользовательские-опции">14. Пользовательские опции</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">option(ENABLE_WARNINGS "Enable warnings" ON)
+
+if(ENABLE_WARNINGS)
+    target_compile_options(app PRIVATE -Wall -Wextra)
+endif()
+</code></pre>
+<h4 id="install-и-find_package">15. install и find_package</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">install(TARGETS mylib EXPORT MyLibTargets)
+install(DIRECTORY include/ DESTINATION include)
+</code></pre>
+<h4 id="cmakepresets.json">16. CMakePresets.json</h4>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+  <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token string">"configurePresets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"generator"</span><span class="token punctuation">:</span> <span class="token string">"Ninja"</span><span class="token punctuation">,</span>
+      <span class="token string">"binaryDir"</span><span class="token punctuation">:</span> <span class="token string">"build/debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"cacheVariables"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"CMAKE_BUILD_TYPE"</span><span class="token punctuation">:</span> <span class="token string">"Debug"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="минимальный-шаблон">17. Минимальный шаблон</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
+project(App LANGUAGES CXX)
+
+add_executable(app src/main.cpp)
+
+target_compile_features(app PRIVATE cxx_std_23)
+target_compile_options(app PRIVATE -Wall -Wextra)
+</code></pre>
+<p><em><strong>Рекомендации по изучению</strong></em></p>
+<ol>
+<li>Всегда думать в терминах targets</li>
+<li>Использовать CMake</li>
+<li>Читать чужие проекты</li>
+<li>Использовать CMakePresets</li>
+<li>Не копировать устаревшие примеры</li>
+</ol>
+<hr>
+</div>
+</body>
+
+</html>

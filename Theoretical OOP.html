@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theoretical OOP.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><blockquote>
+<p>Теоретические сведения по C++ для студентов курса “Программирование на основе классов и шабллонов” кафедры ИУ5 МГТУ им. Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D0%B8%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Объектно-ориентированное программирование</a></li>
+</ul>
+<h3 id="объектно-ориентированное-программирование">Объектно-ориентированное программирование</h3>
+<p>Все объектно-ориентированные языки программирования, включая C++, основаны на трёх фундаментальных концепциях: инкапсуляции, полиморфизме и наследовании.</p>
+<p><em><strong>Инкапсуляция</strong></em> — это механизм объединения данных и кода, который с ними работает, а также их защита от внешнего вмешательства. В ООП данные и методы объединяются в объект, который часто называют «чёрным ящиком». Внутренние элементы объекта могут быть закрытыми (private) — доступными только внутри объекта, или открытыми (public) — доступными извне. Обычно открытая часть объекта служит контролируемым интерфейсом для работы с его закрытыми данными. Объект в ООП можно рассматривать как переменную пользовательского типа, содержащую несколько связанных данных и методов.</p>
+<p><em><strong>Полиморфизм</strong></em> — это свойство, позволяющее использовать одно и то же имя для выполнения разных, но логически схожих операций. В C++ это реализуется, например, через перегрузку функций, когда одно имя функции используется для работы с разными типами данных, а компилятор сам выбирает нужную реализацию. Общая идея полиморфизма выражается формулой «один интерфейс — множество методов». Это упрощает программы, так как программисту не нужно помнить множество имён для похожих действий. Полиморфизм также применяется к операторам (перегрузка операторов), позволяя использовать стандартные операторы для пользовательских типов данных.</p>
+<p><em><strong>Наследование</strong></em> — это механизм, при котором один класс может получать свойства другого и дополнять их своими особенностями. Оно позволяет строить иерархии классов, что упрощает описание сложных систем. Например, класс «дом» может наследовать свойства класса «строение», который, в свою очередь, относится к более общему классу. Наследование избавляет от необходимости повторно описывать общие характеристики для каждого объекта и играет ключевую роль в объектно-ориентированном программировании.</p>
+<p>Одним из важнейших понятий языка C++ является класс. Класс служит механизмом для создания объектов и лежит в основе объектно-ориентированного программирования. Он определяет новый пользовательский тип данных, на основе которого создаются объекты.</p>
+<p><em><strong>Класс</strong></em> объявляется с помощью ключевого слова class. По синтаксису объявление класса похоже на объявление структуры и имеет следующий общий вид:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> имя_класса <span class="token punctuation">{</span>
+    закрытые данные и функции
+<span class="token keyword">public</span><span class="token operator">:</span>
+    открытые данные и функции
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Список объектов при объявлении класса не является обязательным — объекты можно объявлять позже. Однако имя класса необходимо, так как оно становится именем нового типа данных.</p>
+<p>Все переменные и функции, объявленные внутри класса, называются членами класса <code>members</code>. По умолчанию члены класса являются закрытыми <code>private</code>, то есть доступны только другим членам этого же класса. Для объявления открытых членов используется ключевое слово <code>public</code>. Открытые члены доступны как внутри класса, так и из любой части программы, использующей данный класс.</p>
+<p>Рассмотрим простой пример объявления класса:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>        <span class="token comment">// закрытая переменная</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">void</span> <span class="token function">set_a</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>В этом классе переменная a является закрытой, а функции <code>set_a()</code> и <code>get_a()</code> — открытыми. Функции, объявленные внутри класса, называются функциями-членами. Они имеют доступ к закрытым данным класса. В то же время закрытая переменная a недоступна для функций, не являющихся членами myclass.</p>
+<p>Хотя функции объявлены внутри класса, их определения могут находиться вне его. Для этого используется оператор расширения области видимости ::, который связывает функцию с конкретным классом:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">void</span> myclass<span class="token operator">::</span><span class="token function">set_a</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    a <span class="token operator">=</span> num<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> myclass<span class="token operator">::</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Основная форма определения функции-члена выглядит следующим образом:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">тип_возвращаемого_значения имя_класса<span class="token operator">::</span>имя_функции<span class="token punctuation">(</span>параметры<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    тело функции
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Определение класса само по себе не создаёт объектов, а лишь задаёт новый тип данных. Для создания объектов необходимо объявить их, используя имя класса как тип:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">  myclass <span class="token class-name">ob1</span><span class="token punctuation">,</span> ob2<span class="token punctuation">;</span>
+</code></pre>
+<p>Каждый объект имеет собственный набор данных, принадлежащих классу. Обращение к открытым членам объекта осуществляется с помощью оператора точки.</p>
+<p>Ниже приведён пример программы, использующей класс myclass:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">void</span> <span class="token function">set_a</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> myclass<span class="token operator">::</span><span class="token function">set_a</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    a <span class="token operator">=</span> num<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> myclass<span class="token operator">::</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">double</span> <span class="token function">average</span><span class="token punctuation">(</span>myclass<span class="token operator">*</span> mas<span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">double</span> averageValue<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span><span class="token punctuation">{</span>
+      averageValue <span class="token operator">+</span><span class="token operator">=</span> mas<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> averageValue<span class="token operator">/</span>size<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    myclass <span class="token class-name">obj</span><span class="token punctuation">;</span>
+    myclass <span class="token class-name">arr</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    obj<span class="token punctuation">.</span><span class="token function">set_a</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> obj<span class="token punctuation">.</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"\n"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span><span class="token punctuation">{</span>
+      arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">set_a</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span><span class="token punctuation">{</span>
+      std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"среднее значение массива объектов myclass: "</span><span class="token operator">&lt;&lt;</span> <span class="token function">average</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+</div>
+</body>
+
+</html>

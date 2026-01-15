@@ -18,6 +18,9 @@
  - Домашняя работа
 	 - [Домашняя работа]
  - [Style Guide](https://fitoliaka.github.io/OOP/Style%20Guide.html)
+ - [Theoretical libraries](https://fitoliaka.github.io/OOP/Theoretical%20libraries.html)
+ - [Theoretical CMake](https://fitoliaka.github.io/OOP/Theoretical%20CMake.html)
+ - [Theoretical OOP](https://fitoliaka.github.io/OOP/Theoretical%20OOP.html)
  - [Правила сдачи лабораторных работ](https://fitoliaka.github.io/OOP/rules.html)
 
 ### *Команда курса выражает благодарность за помощь в подготовке и обновлении данного курса*
