@@ -15,6 +15,11 @@
 <h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
 <ul>
 <li><a href="#%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D0%B8%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Объектно-ориентированное программирование</a></li>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%8B-%D0%B2-%D1%81">Классы в С++</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80%D1%8B-%D0%B8-%D0%B4%D0%B5%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0-%D0%B2-c">Конструкторы и деструктор класса в C++</a></li>
+<li><a href="#%D0%BF%D0%B5%D1%80%D0%B5%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B9-%D0%BF%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B2%D0%B2%D0%BE%D0%B4%D0%B0-%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4%D0%B0-%D0%B2-c">Перегрузка операций потокового ввода-вывода в C++</a></li>
+<li><a href="#%D0%BF%D0%B5%D1%80%D0%B5%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%B0%D1%80%D0%B8%D1%84%D0%BC%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2-%D0%B8-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2-%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2-c">Перегрузка арифметических операторов и операторов сравнения в C++</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80%D1%8B-%D0%BF%D1%80%D0%B5%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D1%82%D0%B8%D0%BF%D0%BE%D0%B2">Конструкторы преобразования типов</a></li>
 </ul>
 <h3 id="объектно-ориентированное-программирование">Объектно-ориентированное программирование</h3>
 <p>Все объектно-ориентированные языки программирования, включая C++, основаны на трёх фундаментальных концепциях: инкапсуляции, полиморфизме и наследовании.</p>
@@ -22,6 +27,7 @@
 <p><em><strong>Полиморфизм</strong></em> — это свойство, позволяющее использовать одно и то же имя для выполнения разных, но логически схожих операций. В C++ это реализуется, например, через перегрузку функций, когда одно имя функции используется для работы с разными типами данных, а компилятор сам выбирает нужную реализацию. Общая идея полиморфизма выражается формулой «один интерфейс — множество методов». Это упрощает программы, так как программисту не нужно помнить множество имён для похожих действий. Полиморфизм также применяется к операторам (перегрузка операторов), позволяя использовать стандартные операторы для пользовательских типов данных.</p>
 <p><em><strong>Наследование</strong></em> — это механизм, при котором один класс может получать свойства другого и дополнять их своими особенностями. Оно позволяет строить иерархии классов, что упрощает описание сложных систем. Например, класс «дом» может наследовать свойства класса «строение», который, в свою очередь, относится к более общему классу. Наследование избавляет от необходимости повторно описывать общие характеристики для каждого объекта и играет ключевую роль в объектно-ориентированном программировании.</p>
 <p>Одним из важнейших понятий языка C++ является класс. Класс служит механизмом для создания объектов и лежит в основе объектно-ориентированного программирования. Он определяет новый пользовательский тип данных, на основе которого создаются объекты.</p>
+<h3 id="классы-в-с">Классы в С++</h3>
 <p><em><strong>Класс</strong></em> объявляется с помощью ключевого слова class. По синтаксису объявление класса похоже на объявление структуры и имеет следующий общий вид:</p>
 <pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> имя_класса <span class="token punctuation">{</span>
     закрытые данные и функции
@@ -39,7 +45,7 @@
     <span class="token keyword">int</span> <span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>В этом классе переменная a является закрытой, а функции <code>set_a()</code> и <code>get_a()</code> — открытыми. Функции, объявленные внутри класса, называются функциями-членами. Они имеют доступ к закрытым данным класса. В то же время закрытая переменная a недоступна для функций, не являющихся членами myclass.</p>
+<p>В этом классе переменная a является закрытой, а функции <code>set_a()</code> и <code>get_a()</code> — открытыми. Функции, объявленные внутри класса, называются функциями-членами (методами). Они имеют доступ к закрытым данным класса. В то же время закрытая переменная <code>a</code> недоступна для функций, не являющихся членами myclass.</p>
 <p>Хотя функции объявлены внутри класса, их определения могут находиться вне его. Для этого используется оператор расширения области видимости ::, который связывает функцию с конкретным классом:</p>
 <pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">void</span> myclass<span class="token operator">::</span><span class="token function">set_a</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -112,7 +118,271 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <hr>
-</div>
+<h3 id="конструкторы-и-деструктор-класса-в-c">Конструкторы и деструктор класса в C++</h3>
+<p><em><strong>Конструктор</strong></em> — это специальная функция-член класса, которая автоматически вызывается при создании объекта. Конструктор имеет то же имя, что и класс, и не имеет возвращаемого типа.</p>
+<p>Основное назначение конструктора — корректная инициализация полей объекта и подготовка его к использованию.</p>
+<p>В языке C++ допускается наличие нескольких конструкторов с разными наборами параметров (перегрузка конструкторов).</p>
+<p><em><strong>Конструктор по умолчанию</strong></em> — это конструктор, который не принимает параметров. Он вызывается:</p>
+<ul>
+<li>при создании объекта без аргументов;</li>
+<li>при создании массивов объектов.</li>
+</ul>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">myclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Если конструктор по умолчанию не объявлен явно, компилятор может сгенерировать его автоматически, однако при использовании динамической памяти рекомендуется определять его самостоятельно.</p>
+<p><em><strong>Конструктор с параметрами</strong></em> позволяет инициализировать объект значениями, переданными при его создании. Это повышает удобство и безопасность работы с объектами.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">myclass</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Такой конструктор вызывается при создании объекта с аргументами.</p>
+<p><em><strong>Конструктор копирования</strong></em> используется для создания нового объекта на основе уже существующего объекта того же класса. Он принимает ссылку на объект того же типа.</p>
+<p>Конструктор копирования вызывается в следующих случаях:</p>
+<ul>
+<li>при инициализации одного объекта другим;</li>
+<li>при передаче объекта в функцию по значению;</li>
+<li>при возврате объекта из функции.</li>
+</ul>
+<p>Общий вид конструктора копирования:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">myclass</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> other<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// копирование данных</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>При наличии динамической памяти конструктор копирования должен выполнять глубокое копирование, то есть выделять собственную память и копировать данные, <em>а не просто копировать указатели</em>.</p>
+<p><em><strong>Оператор присваивания</strong></em> (operator=) используется для копирования данных в уже существующий объект. В отличие от конструктора копирования, он не создаёт новый объект.</p>
+<p>Пример формы объявления:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> other<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">!=</span> <span class="token operator">&amp;</span>other<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// освобождение старых ресурсов</span>
+        <span class="token comment">// копирование данных</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<ul>
+<li><code>const myclass&amp; other</code> — чтобы не копировать и не изменять источник;</li>
+<li><code>myclass&amp;</code> в возвращаемом типе — чтобы поддерживать цепочки присваивания (a = b = c;) и работать эффективно.</li>
+<li><code>this</code> это указатель на текущий объект, для которого был вызван метод класса.</li>
+</ul>
+</blockquote>
+<p>При работе с динамической памятью оператор присваивания также должен обеспечивать глубокое копирование и защиту от самоприсваивания.</p>
+<p><em><strong>Деструктор</strong></em> — это специальная функция-член класса, которая автоматически вызывается при уничтожении объекта. Имя деструктора совпадает с именем класса и начинается с символа ~.</p>
+<p>Деструктор:</p>
+<ul>
+<li>не имеет параметров;</li>
+<li>не возвращает значение;</li>
+<li>вызывается при выходе объекта из области видимости или при явном удалении.</li>
+</ul>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token operator">~</span><span class="token function">myclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// освобождение ресурсов</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Основная задача деструктора — освобождение ресурсов, таких как динамическая память, файлы и другие системные ресурсы. Корректная реализация деструктора предотвращает утечки памяти.</p>
+<p><em><strong>Конструкторы и деструктор</strong></em> работают совместно и обеспечивают корректный жизненный цикл объекта:</p>
+<ul>
+<li>конструкторы выделяют и инициализируют ресурсы;</li>
+<li>деструктор освобождает все занятые ресурсы.</li>
+</ul>
+<p>При использовании динамической памяти обязательным является наличие:</p>
+<ul>
+<li>конструктора копирования;</li>
+<li>оператора присваивания;</li>
+<li>деструктора.</li>
+</ul>
+<p>Это правило известно как правило трёх.</p>
+<h3 id="перегрузка-операций-потокового-ввода-вывода-в-c">Перегрузка операций потокового ввода-вывода в C++</h3>
+<p>В языке C++ стандартные операторы <em><strong>потокового ввода и вывода</strong></em> &lt;&lt; и &gt;&gt; могут быть перегружены для работы с объектами пользовательских типов. Это позволяет выводить и вводить объекты классов так же удобно, как и встроенные типы данных.</p>
+<p>Назначение перегрузки операторов <code>&lt;&lt;</code> и <code>&gt;&gt;</code></p>
+<ul>
+<li>Перегрузка операторов потокового ввода-вывода позволяет:</li>
+<li>выводить объект в поток (std::cout &lt;&lt; object);</li>
+<li>считывать данные в объект из потока (std::cin &gt;&gt; object);</li>
+<li>сделать код более читаемым и естественным.</li>
+</ul>
+<p>Общая форма <em><strong>перегрузки оператора <code>&lt;&lt;</code></strong></em></p>
+<p>Оператор вывода обычно перегружается в виде внешней функции:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> out<span class="token punctuation">,</span> <span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Основные особенности:</p>
+<ul>
+<li>используется <code>std::ostream&amp;</code> — поток вывода;</li>
+<li>объект передаётся по <code>const</code> ссылке, так как он не изменяется;</li>
+<li>функция возвращает ссылку на поток, что позволяет использовать цепочки вывода.</li>
+</ul>
+<p>Пример перегрузки оператора <code>&lt;&lt;</code></p>
+<pre class=" language-cpp"><code class="prism  language-cpp">std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> out<span class="token punctuation">,</span> <span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    out <span class="token operator">&lt;&lt;</span> obj<span class="token punctuation">.</span><span class="token function">get_a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> out<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Возврат ссылки на поток позволяет выполнять: <code>std::cout &lt;&lt; obj1 &lt;&lt; obj2;</code></p>
+<p>Общая форма <em><strong>перегрузки оператора <code>&gt;&gt;</code></strong></em></p>
+<p>Оператор ввода также перегружается как внешняя функция:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">std<span class="token operator">::</span>istream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span>std<span class="token operator">::</span>istream<span class="token operator">&amp;</span> in<span class="token punctuation">,</span> myclass<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Особенности:</p>
+<ul>
+<li>используется <code>std::istream&amp;</code> — поток ввода;</li>
+<li>объект передаётся по неконстантной ссылке, так как его данные изменяются;</li>
+</ul>
+<p>функция возвращает ссылку на поток ввода.</p>
+<p>Пример перегрузки оператора <code>&gt;&gt;</code></p>
+<pre class=" language-cpp"><code class="prism  language-cpp">std<span class="token operator">::</span>istream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span>std<span class="token operator">::</span>istream<span class="token operator">&amp;</span> in<span class="token punctuation">,</span> myclass<span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> temp<span class="token punctuation">;</span>
+    in <span class="token operator">&gt;&gt;</span> temp<span class="token punctuation">;</span>
+    obj<span class="token punctuation">.</span><span class="token function">set_a</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> in<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Операторы <code>&lt;&lt;</code> и <code>&gt;&gt;</code> перегружаются вне класса, так как:</p>
+<ul>
+<li>левым операндом является объект потока (std::cout, std::cin);</li>
+<li>эти классы нельзя модифицировать.</li>
+</ul>
+<p>Для доступа к закрытым полям класса обычно используются:</p>
+<ul>
+<li>открытые методы <code>get()</code> и <code>set()</code>;</li>
+<li>либо объявление функций-друзей (friend).</li>
+</ul>
+<p><em><strong>Использование friend</strong></em></p>
+<p>При необходимости прямого доступа к закрытым данным класса оператор может быть объявлен как дружественный:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">friend</span> std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token keyword">const</span> myclass<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>friend</code> позволяет функции обращаться к закрытым членам класса, не нарушая его целостность.</p>
+<h3 id="перегрузка-арифметических-операторов-и-операторов-сравнения-в-c">Перегрузка арифметических операторов и операторов сравнения в C++</h3>
+<p>В языке C++ <em><strong>арифметические операторы</strong></em> (+, -, *, / и др.) могут быть перегружены для работы с объектами пользовательских типов. Это позволяет выполнять арифметические операции над объектами так же, как и над встроенными типами данных.</p>
+<p>Перегрузка арифметических операторов позволяет:</p>
+<ul>
+<li>задать логичный смысл операций над объектами;</li>
+<li>сделать код более наглядным и удобным для чтения;</li>
+<li>использовать стандартный синтаксис языка для пользовательских типов.</li>
+</ul>
+<p><em><strong>Бинарный арифметический оператор</strong></em> можно перегрузить:</p>
+<ul>
+<li>как метод класса;</li>
+<li>как внешнюю функцию.</li>
+</ul>
+<p>Общий вид:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass <span class="token class-name">operator</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+</code></pre>
+<p>или</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass <span class="token class-name">operator</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> a<span class="token punctuation">,</span> <span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Пример перегрузки оператора + (метод класса)</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">myclass</span><span class="token punctuation">(</span><span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">a</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    myclass <span class="token class-name">operator</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">myclass</span><span class="token punctuation">(</span>a <span class="token operator">+</span> other<span class="token punctuation">.</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Здесь:</p>
+<ul>
+<li>оба операнда не изменяются (<code>const</code>);</li>
+<li>результатом является новый объект класса.</li>
+</ul>
+<p><em><strong>Унарные операторы</strong></em> работают с одним объектом (например <code>-obj</code>);</p>
+<p><em><strong>Бинарные операторы</strong></em> работают с двумя объектами (<code>obj1 + obj2</code>).</p>
+<p>Правила перегрузки одинаковы, различается количество параметров.</p>
+<p><em><strong>Операторы сравнения</strong></em> (<code>==</code>, <code>&lt;</code>, <code>&gt;</code>, …) также могут быть перегружены и обычно возвращают <code>bool</code>.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">const</span> myclass<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> a <span class="token operator">==</span> other<span class="token punctuation">.</span>a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="конструкторы-преобразования-типов">Конструкторы преобразования типов</h3>
+<p><em><strong>Конструктор преобразования</strong></em> — это конструктор, который принимает один параметр другого типа и используется для преобразования значения этого типа в объект класса.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">myclass</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Теперь возможно:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass <span class="token class-name">obj</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>   <span class="token comment">// неявное преобразование</span>
+</code></pre>
+<p><em><strong>Явные и неявные преобразования</strong></em></p>
+<p>Чтобы запретить <em><strong>неявные преобразования</strong></em>, используется ключевое слово <code>explicit</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">explicit</span> <span class="token function">myclass</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>В этом случае допустимо только <em><strong>явное преобразование</strong></em>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass <span class="token class-name">obj</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// корректно</span>
+</code></pre>
+<p><em><strong>Конструкторы преобразования</strong></em> применяются:</p>
+<ul>
+<li>при инициализации объекта значением другого типа;</li>
+<li>при передаче аргументов в функции;</li>
+<li>при возвращении значений из функций.</li>
+</ul>
+<p><em><strong>Оператор преобразования типа</strong></em> позволяет преобразовать объект класса в значение другого типа.</p>
+<p>Общий вид:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">operator</span> тип<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Пример оператора преобразования типа</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">operator</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Теперь возможно:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">myclass <span class="token class-name">obj</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> x <span class="token operator">=</span> obj<span class="token punctuation">;</span>   <span class="token comment">// преобразование объекта в int</span>
+</code></pre>
+<p><em><strong>Отличие конструктора преобразования и оператора преобразования</strong></em></p>
+
+<table>
+<thead>
+<tr>
+<th>Механизм</th>
+<th>Направление преобразования</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Конструктор преобразования</td>
+<td>из другого типа → в объект класса</td>
+</tr>
+<tr>
+<td>Оператор преобразования</td>
+<td>из объекта класса → в другой тип</td>
+</tr>
+</tbody>
+</table></div>
 </body>
 
 </html>
