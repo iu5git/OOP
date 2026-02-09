@@ -23,7 +23,11 @@
 <li><a href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE-%D0%B2%D0%B0%D1%80%D0%B8%D0%B0%D0%BD%D1%82%D0%B0%D0%BC">Дополнительные задания (по вариантам)</a></li>
 </ul>
 </li>
-<li><a href="#%D0%BA%D0%B0%D0%BA-%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C-%D1%81%D0%B2%D0%BE%D1%8E-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D1%83">Как написать свою библиотеку</a></li>
+<li><a href="#%D0%BA%D0%B0%D0%BA-%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C-%D1%81%D0%B2%D0%BE%D1%8E-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D1%83">Как написать свою библиотеку</a>
+<ul>
+<li><a href="#%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE">Коротко</a></li>
+</ul>
+</li>
 <li><a href="#%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA-%D1%81-cmake">Использование библиотек с CMake</a></li>
 <li><a href="#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BE%D1%82%D1%87%D1%91%D1%82%D1%83">Требования к отчёту</a></li>
 <li><a href="#%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%B4%D0%BB%D1%8F-%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D1%8B">Вопросы для защиты</a></li>
@@ -131,10 +135,31 @@
 <p><em>Компиляция в объектный файл:</em></p>
 <pre class=" language-bash"><code class="prism  language-bash">g++ -c mylib.cpp
 </code></pre>
-<p>Создаётся файл: <code>mylib.o</code></p>
+<p>где флаг <code>-с</code>   только компилировать, но не линковать.</p>
+<ul>
+<li><code>g++</code> переводит <code>mylib.cpp</code> в объектный файл</li>
+<li>на выходе получается файл <code>mylib.o</code></li>
+<li>исполняемый файл НЕ создаётся</li>
+</ul>
 <p><em>Упаковка в статическую библиотеку:</em></p>
 <pre class=" language-bash"><code class="prism  language-bash">ar rcs libmylib.a mylib.o
 </code></pre>
+<p><code>ar</code> (archiver) - инструмент для создания статических библиотек в Linux / Unix.</p>
+<p>Файл libmylib.a — это статическая библиотека.</p>
+<p><code>rcs</code>:</p>
+<ul>
+<li><strong>r</strong>eplace - добавить файл в архив, если такой файл уже есть —&gt; заменить</li>
+<li><strong>c</strong>reate - создать архив, если его ещё нет (без этого флага <code>ar</code> всё равно создаст, но будет ворчать предупреждением)</li>
+<li><strong>s</strong>ymbol index - создать индекс символов (таблицу функций) -&gt; нужен линковщику (ld), чтобы быстрее находить функции.</li>
+</ul>
+<p>итог</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">ar rcs libmylib<span class="token punctuation">.</span>a mylib<span class="token punctuation">.</span>o
+</code></pre>
+<ul>
+<li>создаёт статическую библиотеку libmylib.a,</li>
+<li>кладёт туда объектный файл mylib.o,</li>
+<li>добавляет таблицу символов.</li>
+</ul>
 <p>Теперь libmylib.a — статическая библиотека.</p>
 <ol start="3">
 <li>Используем статическую библиотеку</li>
@@ -151,8 +176,11 @@
 <pre class=" language-bash"><code class="prism  language-bash">g++ main.cpp -L. -lmylib -o app
 </code></pre>
 <p>где:</p>
-<p>-L. — где искать библиотеку</p>
-<p>-lmylib — какую библиотеку подключить</p>
+<ul>
+<li>имя файла: <strong>lib</strong><code>mylib</code>.a</li>
+<li>ключ: <code>-l</code> + <code>mylib</code></li>
+<li><code>-L.</code> где искать библиотеку: «ищи библиотеку в текущей папке»</li>
+</ul>
 <p>код библиотеки попадёт внутрь app, компоновщик сам выберет подходящий файл.</p>
 <p>или принудительно</p>
 <pre class=" language-bash"><code class="prism  language-bash">g++ main.cpp ./libmylib.a -o app
@@ -163,21 +191,76 @@
 <p><em>Компиляция с поддержкой динамической загрузки:</em></p>
 <pre class=" language-bash"><code class="prism  language-bash">g++ -fPIC -c mylib.cpp
 </code></pre>
+<p>где флаг <code>-fPIC</code> - <strong>P</strong>osition <strong>I</strong>ndependent <strong>C</strong>ode</p>
+<ul>
+<li>код генерируется так, чтобы его можно было загрузить по любому адресу в памяти</li>
+<li>обязательно для динамических библиотек (.so)</li>
+</ul>
+<p>Почему это нужно:</p>
+<ul>
+<li><code>.so</code> может быть загружена в разные адреса разными процессами</li>
+<li>без <sub>-fPIC</sub> линковщик либо ругнётся, либо библиотека будет работать медленно/криво</li>
+</ul>
 <p><em>Создание .so:</em></p>
 <pre class=" language-bash"><code class="prism  language-bash">g++ -shared -o libmylib.so mylib.o
 </code></pre>
-<p>Это динамическая библиотека.</p>
+<p>где флаг <code>-shared</code> указание линковщику -&gt; «собери shared library, а не исполняемый файл»</p>
+<p>результат: <code>libmylib.so</code> это динамическая библиотека.</p>
 <ol start="5">
 <li>Использование динамической библиотеки</li>
 </ol>
 <p><em>Компиляция программы:</em></p>
 <pre class=" language-bash"><code class="prism  language-bash">g++ main.cpp -L. -lmylib -o app
 </code></pre>
+<p>Флаги:</p>
+<ul>
+<li><code>-L.</code> — где искать библиотеки (текущая папка)</li>
+<li><code>-lmylib</code> — ищет <code>libmylib.so</code> (сначала <code>.so</code>, потом <code>.a</code>)</li>
+<li><code>-o app</code> — имя исполняемого файла.</li>
+</ul>
+<blockquote>
+<p><em><strong>ВАЖНО</strong></em></p>
+<p><em>На этапе компиляции библиотека должна быть найдена,<br>
+но на этапе запуска — тоже</em>.</p>
+</blockquote>
 <p>Перед запуском:</p>
 <pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">export</span> LD_LIBRARY_PATH<span class="token operator">=</span><span class="token punctuation">.</span>
 <span class="token punctuation">.</span><span class="token operator">/</span>app
 </code></pre>
-<p>(или положить .so в стандартную папку)</p>
+<p><code>LD_LIBRARY_PATH</code> — список директорий, где динамический загрузчик ищет <code>.so</code> во время запуска.<br>
+(или положить <code>.so</code> в стандартную папку)</p>
+<h3 id="коротко">Коротко</h3>
+
+<table>
+<thead>
+<tr>
+<th>Флаг / переменная</th>
+<th>Зачем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-fPIC</code></td>
+<td>Код можно загружать по любому адресу</td>
+</tr>
+<tr>
+<td><code>-shared</code></td>
+<td>Собрать <code>.so</code>, а не исполняемый файл</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>Где искать библиотеки при линковке</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Какую библиотеку подключать</td>
+</tr>
+<tr>
+<td><code>LD_LIBRARY_PATH</code></td>
+<td>Где искать <code>.so</code> при запуске</td>
+</tr>
+</tbody>
+</table><hr>
 <h2 id="использование-библиотек-с-cmake">Использование библиотек с CMake</h2>
 <p>Главная идея CMake:</p>
 <p><em><strong>CMake не компилирует код сам.<br>
