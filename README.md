@@ -7,7 +7,6 @@
 > https://fitoliaka.github.io/OOP/
  - Лабораторные работы
 	 - [Лабораторная работа 1](https://Fitoliaka.github.io/OOP/meta/lab_1.html)
-iu5git/OOP/blob/main
 	 - [Лабораторная работа 2](https://fitoliaka.github.io/OOP/meta/lab_2.html)
 	 - [Лабораторная работа 3](https://fitoliaka.github.io/OOP/meta/lab_3.html)
 	 - [Лабораторная работа 4](https://fitoliaka.github.io/OOP/meta/lab_4.html)
