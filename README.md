@@ -21,12 +21,16 @@
      - [Практика](https://iu5git.github.io/OOP/meta/practice.html)
 
   ---
-  
+
  - [Style Guide](https://iu5git.github.io/OOP/Style%20Guide.html)
  - [Theoretical libraries](https://iu5git.github.io/OOP/Theoretical%20libraries.html)
  - [Theoretical CMake](https://iu5git.github.io/OOP/Theoretical%20CMake.html)
  - [Theoretical OOP](https://iu5git.github.io/OOP/Theoretical%20OOP.html)
  - [Правила сдачи лабораторных работ](https://iu5git.github.io/OOP/rules.html)
+
+---
+
+---
 
 ### *Команда курса выражает благодарность за помощь в подготовке и обновлении данного курса*
 
