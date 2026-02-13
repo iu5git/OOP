@@ -16,8 +16,9 @@
 	 - [Лабораторная работа 8](https://iu5git.github.io/OOP/meta/lab_8.html)
 	 - [Лабораторная работа 9](https://iu5git.github.io/OOP/meta/lab_9.html)
  - Домашняя работа
-	 - [Домашняя работа]
- -
+	 - [Домашняя работа](https://iu5git.github.io/OOP/meta/homeWork.html)
+ - Практика
+     - [Практика](https://iu5git.github.io/OOP/meta/practice.html)
  - [Style Guide](https://iu5git.github.io/OOP/Style%20Guide.html)
  - [Theoretical libraries](https://iu5git.github.io/OOP/Theoretical%20libraries.html)
  - [Theoretical CMake](https://iu5git.github.io/OOP/Theoretical%20CMake.html)
