@@ -1,0 +1,692 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="динамическое-связывание----omit-in-toc---">5 - Динамическое связывание <!-- omit in toc --></h1>
+<blockquote>
+<p>Лабораторная работа 5 для студентов курса “Программирование на основе классов и шаблонов” 2 семестра кафедры ИУ5 МГТУ им Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Начало работы</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Задание</a></li>
+<li><a href="#%D1%83%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Указания к выполнению лабораторной работы</a></li>
+<li><a href="#%D1%82%D0%B5%D0%BE%D1%80%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D1%81%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B4%D0%BB%D1%8F-%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Теоретические сведения для выполнения лабораторной работы</a>
+<ul>
+<li><a href="#%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Наследование</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80%D1%8B-%D0%B8-%D0%B4%D0%B5%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80%D1%8B-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%BD%D1%8B%D1%85-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2">Конструкторы и деструкторы производных классов</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80-%D0%BF%D1%80%D0%B8%D1%81%D0%B2%D0%B0%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">Наследование и оператор присваивания</a></li>
+<li><a href="#%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8%D0%B5%D1%80%D0%B0%D1%80%D1%85%D0%B8%D0%B8-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2-%D1%81%D0%B2%D1%8F%D0%B7%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BC">Пример создания иерархии классов, связанных наследованием</a></li>
+<li><a href="#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0">Создание базового класса</a>
+<ul>
+<li><a href="#%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BE%D1%82-%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0">Наследование от базового класса</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80-%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0">Конструктор базового класса</a></li>
+</ul>
+</li>
+<li><a href="#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%B0-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0-student">Создание объекта класса Student</a></li>
+<li><a href="#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0-%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%D0%B0-teacher">Создание класса-наследника Teacher</a></li>
+<li><a href="#%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8">Виртуальные функции</a></li>
+<li><a href="#%D0%B0%D0%B1%D1%81%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%8B">Абстрактные классы</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="цель-работы">Цель работы</h2>
+<p>Целью лабораторной работы является изучение понятия абстрактного класса,<br>
+виртуальных функций и механизма динамического связывания.</p>
+<h2 id="начало-работы">Начало работы</h2>
+<p>Зайдите в свою локальную директорию с репозиторием для выполнения лабораторных работ. Заберите ветку с соответствующей лабораторной работой из общего репозитория:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream
+</code></pre>
+<p><strong>или</strong></p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream lab_5
+</code></pre>
+<p>Переключитесь на ветку с текущей лабораторной работой:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git checkout lab_5
+</code></pre>
+<p>Свяжите ветку локального репозитория с вашим удаленным репозиторием:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git push --set-upstream origin lab_5
+</code></pre>
+<h2 id="задание">Задание</h2>
+<p>Реализовать классы, предусмотренные вариантом (вариант равен остатку от деления номера по списку на 15).</p>
+
+<table>
+<thead>
+<tr>
+<th>№ п/п</th>
+<th>Перечень классов</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>студент, преподаватель, персона, завкафедрой</td>
+</tr>
+<tr>
+<td>2</td>
+<td>служащий, персона, рабочий, инженер</td>
+</tr>
+<tr>
+<td>3</td>
+<td>рабочий, кадры, инженер, администрация</td>
+</tr>
+<tr>
+<td>4</td>
+<td>деталь, механизм, изделие, узел</td>
+</tr>
+<tr>
+<td>5</td>
+<td>организация, страховая компания, судостроительная компания, завод</td>
+</tr>
+<tr>
+<td>6</td>
+<td>журнал, книга, печатное издание, учебник</td>
+</tr>
+<tr>
+<td>7</td>
+<td>тест, экзамен, выпускной экзамен, испытание</td>
+</tr>
+<tr>
+<td>8</td>
+<td>место, область, город, мегаполис</td>
+</tr>
+<tr>
+<td>9</td>
+<td>игрушка, продукт, товар, молочный продукт</td>
+</tr>
+<tr>
+<td>10</td>
+<td>квитанция, накладная, документ, чек</td>
+</tr>
+<tr>
+<td>11</td>
+<td>автомобиль, поезд, транспортное средство, экспресс</td>
+</tr>
+<tr>
+<td>12</td>
+<td>двигатель, двигатель внутреннего сгорания, дизель, турбореактивный двигатель</td>
+</tr>
+<tr>
+<td>13</td>
+<td>республика, монархия, королевство, государство</td>
+</tr>
+<tr>
+<td>14</td>
+<td>млекопитающие, парнокопытные, птицы, животное</td>
+</tr>
+<tr>
+<td>15</td>
+<td>корабль, пароход, парусник, корвет</td>
+</tr>
+</tbody>
+</table><h2 id="указания-к-выполнению-лабораторной-работы">Указания к выполнению лабораторной работы</h2>
+<ol>
+<li><strong>Иерархия классов</strong></li>
+</ol>
+<p>Для определения иерархии классов связать отношением наследования классы из списка по варианту. Из перечисленных классов необходимо выбрать наиболее общее понятие, которое будет являться базовым (абстрактным) классом.</p>
+<p>Определить в классах <strong>все необходимые конструкторы и деструкторы</strong>. Не забыть в абстрактном классе определить <strong>виртуальный деструктор</strong>.</p>
+<p>В конструкторах и деструкторах для абстрактного класса и производных классов предусмотреть <strong>вывод отладочных сообщений</strong> об их вызове в консоль.</p>
+<p>Например:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span>  <span class="token string">"A()"</span>  <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>  <span class="token comment">//при вызове конструктора</span>
+std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span>  <span class="token string">"~A()"</span>  <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>  <span class="token comment">//при вызове деструктора</span>
+</code></pre>
+<p>В абстрактном классе создать статическую переменную ­– динамический массив указателей на базовый класс для демонстрации работы полиморфизма.</p>
+<blockquote>
+<p><em>В работе запрещено использование контейнеров STL (vector, list и др.).<br>
+В данной лабораторной контейнер реализуется вручную для изучения динамических массивов.</em><br>
+Контейнер реализуется в базовом классе только в учебных целях для демонстрации полиморфизма.</p>
+</blockquote>
+<p><strong>Компонентные данные класса</strong> специфицировать как protected.</p>
+<p>В абстрактном классе объявить виртуальный метод <em><code>show()</code></em>, который отвечает за <strong>отображение данных класса</strong>. В каждом производном классе реализовать данный метод с учетом специфики каждого класса.</p>
+<p>Определение классов, их реализацию, демонстрационную программу поместить в отдельные файлы. Данные файлы должны быть упакованы в <strong>отдельную статическую библиотеку</strong>.</p>
+<ol>
+<li><strong>Контейнер классов</strong></li>
+</ol>
+<p>Реализовать статические функции:</p>
+<ul>
+<li>Функция <em><code>print()</code></em> для <strong>вывода</strong> всех связанных с контейнером экземпляров производных классов с указанием индекса в контейнере.</li>
+<li>Функция <em><code>remove()</code></em> для <strong>удаления</strong> конкретного указателя по заданному индексу из контейнера и для удаления динамического объекта по этому указателю.</li>
+<li>Функция <em><code>clear()</code></em> для <strong>очистки</strong> контейнера и удаления всех динамически созданных объектов по указателям из контейнера.</li>
+</ul>
+<blockquote>
+<p>При отладке программы по отладочным сообщениям из деструкторов убедитесь в корректной работе виртуальных деструкторов. (в каждом деструкторе добавить строку <code>std::cout &lt;&lt; "**** destructor\n";</code> , где <code>****</code> имя класса)</p>
+</blockquote>
+<p>Для демонстрации проделанной работы необходимо продемонстрировать:</p>
+<ul>
+<li>Добавление в динамический массив <strong>динамически созданных экземпляров</strong> заданных классов. Объекты вводить с клавиатуры. Предусмотреть оптимальное расширение динамического массива (х2).</li>
+<li>Работу функции <em><code>print()</code></em>.</li>
+<li>Работу функции <em><code>remove()</code></em>.</li>
+<li>Работу функции <em><code>clear()</code></em>.</li>
+</ul>
+<h2 id="теоретические-сведения-для-выполнения-лабораторной-работы">Теоретические сведения для выполнения лабораторной работы</h2>
+<h3 id="наследование">Наследование</h3>
+<p>Язык C++ позволяет классу наследовать переменные-члены и методы одного или нескольких других классов. Новый класс называют <strong>производным классом</strong>. Класс, элементы которого наследуются производным классом, называется <strong>базовым классом</strong>. В свою очередь производный класс может служить базовым для другого класса.</p>
+<p>Общий вид наследования:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span>  <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span>  <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token operator">&lt;</span>ключ  доступа<span class="token operator">&gt;</span> Base <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&lt;Ключ  доступа&gt;  может  быть  <em><code>private</code></em>, <em><code>protected</code></em>, <em><code>public</code></em>. Если ключ не указан, то по умолчанию он принимается <em><code>private</code></em>.</p>
+<p>Наследование даст возможность заключить некоторое общее или схожее поведение различных объектов в одном базовом классе.</p>
+<p>Наследование позволяет также изменить поведение существующего класса. Производный класс может переопределить некоторые методы базового, наследуя, тем не менее, основной объем свойств и атрибутов базового класса. С помощью наследования может быть создана иерархия классов, которые совместно используют код и интерфейсы.</p>
+<p>Наследуемые компоненты базового класса становятся частью объекта производного класса.</p>
+<p>В иерархии производный объект наследует разрешенные для наследования компоненты всех базовых объектов (<em><code>public</code></em>, <em><code>protected</code></em>).</p>
+<p>Допускается множественное наследование - возможность для некоторого класса наследовать компоненты нескольких никак не связанных между собой базовых классов. В иерархии классов соглашение относительно доступности компонентов класса следующее:</p>
+<p><em><code>private</code></em> - член класса может использоваться только функциями-членами данного класса и функциями-<em><code>friend</code></em> своего класса. В производном классе он недоступен.</p>
+<p><em><code>protected</code></em> - то же, что и private, но дополнительно член класса с данным атрибутом доступа может использоваться функциями-членами и функциями-<em><code>friend</code></em> классов, производных от данного (при наследовании public и protected).</p>
+<p><em><code>public</code></em> - член класса может использоваться любой функцией, которая является членом данного или производного класса, а также к <em><code>public</code></em> - членам возможен доступ извне через имя объекта (при наследовании <em><code>public</code></em> и <em><code>protected</code></em>).</p>
+<p>Следует иметь в виду, что объявление friend не является атрибутом доступа и не наследуется.</p>
+<p>Наследование позволяет рассматривать целые иерархии классов и работать со всеми элементами одинаково, приводя их к базовому. Правила приведения следующие:</p>
+<ul>
+<li>наследуемый класс всегда можно привести к базовому;</li>
+<li>базовый класс можно привести к наследуемому, только если в действительности это объект наследуемого класса.</li>
+</ul>
+<p>Ошибки приведения базового класса к наследуемому отслеживаются программистом.</p>
+<p>Синтаксис определения производного класса:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span>  имя_класса <span class="token operator">:</span> <span class="token operator">&lt;</span>ключ доступа<span class="token operator">&gt;</span> список_базовых_классов <span class="token punctuation">{</span>
+    <span class="token comment">// список_компонентов_класса</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>В приведенном ниже примере показано определение наследования классов и доступа к членам базового класса через объект производного класса:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span>  <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> n<span class="token punctuation">;</span>
+    <span class="token keyword">int</span>  <span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">++</span>n<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span>  <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span>  Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> m<span class="token punctuation">;</span>
+    <span class="token keyword">int</span>  <span class="token function">discount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">--</span>m<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span>  <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Derived d<span class="token punctuation">;</span>
+    d<span class="token punctuation">.</span>n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> d<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+    d<span class="token punctuation">.</span>m <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> d<span class="token punctuation">.</span><span class="token function">discount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="конструкторы-и-деструкторы-производных-классов">Конструкторы и деструкторы производных классов</h3>
+<p>Поскольку конструкторы не наследуются, при создании производного класса наследуемые им данные-члены должны инициализироваться конструктором базового класса. Конструктор базового класса вызывается автоматически и выполняется до конструктора производного класса. Параметры конструктора базового класса указываются в определении конструктора производного класса. Таким образом происходит передача аргументов от конструктора производного класса конструктору базового класса. Например:</p>
+<p>Классы конструируются снизу вверх: сначала базовый, а потом сам производный класс. Таким образом, объект производного класса содержит в качестве подобъекта объект базового класса.</p>
+<p>Уничтожаются объекты в обратном порядке: сначала производный, а потом базовый объект.</p>
+<p>Таким образом, порядок уничтожения объекта противоположен по отношению к порядку его конструирования.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">
+<span class="token keyword">class</span>  <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Base</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        b <span class="token operator">=</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span>  <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span>  Base <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> sum<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> s<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">Base</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        sum <span class="token operator">=</span> s<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="наследование-и-оператор-присваивания">Наследование и оператор присваивания</h3>
+<p>Оператор присваивания не наследуется, так как при отсутствии этого оператора в производном классе компилятор генерирует для этого класса оператор присваивания по умолчанию. Поэтому нетривиальные операторы присваивания нужно переопределять в производных классах.</p>
+<h3 id="пример-создания-иерархии-классов-связанных-наследованием">Пример создания иерархии классов, связанных наследованием</h3>
+<p><em><strong>Иерархия классов</strong></em></p>
+<p>В рассматриваемом примере используется следующая структура наследования:</p>
+<pre><code>        Human
+        /   \
+   Student  Teacher
+</code></pre>
+<ul>
+<li><em><code>Human</code></em> — базовый класс, содержащий общие данные о человеке</li>
+<li><em><code>Student</code></em> — производный класс, добавляющий оценки</li>
+<li><em><code>Teacher</code></em> — производный класс, добавляющий учебную нагрузку</li>
+</ul>
+<p>Все объекты могут рассматриваться как объекты типа <em><code>Human</code></em>.</p>
+<p>Пусть в базе данных вуза должна храниться информация обо всех студентах и преподавателях. Представлять все данные в одном классе не получится, поскольку для преподавателей нам понадобится хранить данные, которые для студента неприменимы, и наоборот.</p>
+<h3 id="создание-базового-класса">Создание базового класса</h3>
+<p>Для решения этой задачи создадим базовый класс Human, который будет описывать модель человека. В нем будут храниться в переменной name имя, фамилия и отчество.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// Human.h</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;cstring&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span>  <span class="token class-name">Human</span> <span class="token punctuation">{</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> name<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Human</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        name <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">Human</span><span class="token punctuation">(</span><span class="token keyword">const</span>  <span class="token keyword">char</span><span class="token operator">*</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        name <span class="token operator">=</span> <span class="token keyword">new</span>  <span class="token keyword">char</span>\<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span><span class="token function">strcpy</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">Human</span><span class="token punctuation">(</span><span class="token keyword">const</span>  Human<span class="token operator">&amp;</span> copy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        name <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>copy<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span><span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>name<span class="token punctuation">,</span> copy<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    Human<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> Human<span class="token operator">&amp;</span> copy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">!=</span> <span class="token operator">&amp;</span>copy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> name<span class="token punctuation">;</span>
+            name <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>copy<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            std<span class="token operator">::</span><span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>name<span class="token punctuation">,</span> copy<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token operator">~</span><span class="token function">Human</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> name <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">get_name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// Получение  Ф.И.О. человека</span>
+        <span class="token keyword">return</span>  name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="наследование-от-базового-класса">Наследование от базового класса</h4>
+<p>Теперь создайте новый <strong>класс</strong> Student, который будет наследником класса Human. В новом классе добавлены новое свойство scores - целочисленный массив оценок студента и метод getAverageScore() для вычисления среднего балла студента.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// Student.h</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Human.h"</span></span>
+
+<span class="token keyword">namespace</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token keyword">int</span> kSizeScore <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">Student</span> <span class="token operator">:</span> <span class="token keyword">public</span> Human <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> scores<span class="token punctuation">[</span>kSizeScore<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Student</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> name<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">*</span> scores<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">Human</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> kSizeScore<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span>
+​           ​<span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">double</span> <span class="token function">getAverageScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">// Получение среднего балла студента</span>
+        <span class="token keyword">unsigned</span> <span class="token keyword">int</span> sumScores <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> averageScore<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> kSizeScore<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sumScores <span class="token operator">+</span><span class="token operator">=</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        averageScore <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span> sumScores <span class="token operator">/</span> kSizeScore<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> averageScore<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Human<span class="token operator">::</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// Вывод имени студента (используется унаследованный метод класса Human)</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Оценки: "</span><span class="token punctuation">;</span>    <span class="token comment">// Вывод оценок студента</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> kSizeScore<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            ​std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">' '</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    ​    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Средний балл:"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getAverageScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span><span class="token comment">// Вывод среднего балла студента</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Все публичные свойства и методы класса Human будут доступны в классе Student.</p>
+<h4 id="конструктор-базового-класса">Конструктор базового класса</h4>
+<p>Для того чтобы выполнить конструктор родительского класса для объекта <em><code>Student</code></em> (в нашем случае — это заполнение поля name), используется следующий синтаксис:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// Конструктор класса Student</span>
+
+<span class="token function">Student</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>аргументы конструктора текущего класса<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">Human</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>инициализация конструктора родительского класса<span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token comment">// инициализация конструктора текущего класса</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>В конструктор класса <em><code>Human</code></em> мы передаем фамилию, имя, отчество человека, которые сохраняются в экземпляре класса. Для класса <em><code>Student</code></em> нам необходимо задать еще и список оценок студента. Поэтому конструктор <em><code>Student</code></em> принимает все аргументы конструктора базового класса, а также дополнительные аргументы для расширения функционала:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">
+<span class="token function">Student</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> name<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">*</span> scores<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">Human</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> kSizeScore<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Список оценок студента хранится в массиве.</p>
+<h3 id="создание-объекта-класса-student">Создание объекта класса Student</h3>
+<p>Реализуем пользовательский интерфейс для работы с классом Student.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Student.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> scores<span class="token punctuation">[</span>kSizeScore<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    Student<span class="token operator">*</span> stud <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">Student</span><span class="token punctuation">(</span><span class="token string">"Петров Иван Алексеевич"</span><span class="token punctuation">,</span> scores<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stud<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">delete</span> stud<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>В этом примере мы написали программу, которая создает объект класса <em><code>Student</code></em>, сохраняя в нем его имя, фамилию, отчество и список оценок. После инициализации объекта происходит вывод всех данных о студенте. Для этого для объекта вызывается метод print(), в котором:</p>
+<p>вызывается метод <em><code>print()</code></em>, унаследованный от базового класса <em><code>Human</code></em> – выводится имя объекта;</p>
+<p>выводятся оценки студента – вывод содержимого переменной-члена scores;</p>
+<p>затем в методе вычисляется средний балл студента (вызов метода getAverageScore) и выводится на экран.</p>
+<p>Результат выполнения main():</p>
+<pre class=" language-bash"><code class="prism  language-bash">Петров Иван Алексеевич
+
+Оценки: 5  4  4  5  3
+
+Средний балл: 4.2
+</code></pre>
+<h3 id="создание-класса-наследника-teacher">Создание класса-наследника Teacher</h3>
+<p>Нужно создать еще один класс, в котором будут храниться данные преподавателей. Дадим ему название — <em><code>Teacher</code></em>. Как вы уже поняли, мы не будем описывать все методы этого класса с нуля, а просто унаследуем его от класса Human. Тогда не нужно будет реализовывать хранение имени, фамилии и отчества преподавателя. Это уже есть в базовом классе Human.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// Teacher.h</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Human.h"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Teacher</span> <span class="token operator">:</span> <span class="token keyword">public</span> Human <span class="token punctuation">{</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> workTime<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Teacher</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> name<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">int</span> workTime<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">Human</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>workTime <span class="token operator">=</span> workTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">getWorkTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">&gt;</span>workTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment">// Вывод фамилии, имени, отчества преподавателя</span>
+                        <span class="token comment">//(используется унаследованный метод класса Human)</span>
+        Human<span class="token operator">::</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">// Вывод количества учебных часов преподавателя</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Количество часов: "</span><span class="token punctuation">;</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> workTime <span class="token operator">&lt;&lt;</span> <span class="token string">"\n\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>У класса <em><code>Teacher</code></em> появилось новое свойство — количество учебных часов, отведенное преподавателю. Весь остальной функционал наследуется от базового класса <em><code>Human</code></em>. Если бы мы писали все с нуля, то одинакового кода получилось бы в разы больше, и его поддержка усложнилась бы на порядок.</p>
+<p><strong>Создание объекта класса Teacher</strong></p>
+<p>Изменим содержимое файла <em><code>main.cpp</code></em>, чтобы проверить работу класса Teacher.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Teacher.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> teacherWorkTime <span class="token operator">=</span> <span class="token number">40</span><span class="token punctuation">;</span>  <span class="token comment">// Количество учебных часов преподавателя</span>
+    Teacher<span class="token operator">*</span> tch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">Teacher</span><span class="token punctuation">(</span><span class="token string">"Bacильков Петр Сергеевич"</span><span class="token punctuation">,</span> ​​​​teacherWorkTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    tch<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">delete</span> tch<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Результат выполнения main():</p>
+<pre class=" language-bash"><code class="prism  language-bash">Bacильков Петр Сергеевич
+Количество часов: 40
+</code></pre>
+<blockquote>
+<p>Можно таким же образом создать класс, в котором будут храниться данные обслуживающего персонала или руководящего состава. Наследование используют, когда у каждой группы объектов есть общие параметры, но для каждой из этих групп нужно хранить более кастомные данные.</p>
+</blockquote>
+<p>Также мы можем создать класс, который будет описывать студента заочной формы обучения. Его мы унаследовали бы от класса Student, добавив кое-какие дополнительные данные.</p>
+<p>В класс <em><code>Human</code></em> можно добавить еще больше свойств, которые будут описывать данные, имеющиеся у любого человека. Например, номер паспорта, дату рождения, прописку и место проживания.</p>
+<p>Подобный подход позволяет в разы уменьшить дублирование кода в реальных проектах и упросить его поддержку.</p>
+<h3 id="виртуальные-функции">Виртуальные функции</h3>
+<p>В языке C++ существует механизм динамического связывания, который позволяет вызывать функцию производного класса, даже если доступ к объекту осуществляется через указатель или ссылку на базовый класс.</p>
+<p>Для этого функция базового класса должна быть объявлена с ключевым словом <em><code>virtual</code></em>.</p>
+<p>Функция производного класса, имеющая такое же имя и сигнатуру, переопределяет (замещает) виртуальную функцию базового класса.</p>
+<p>Такие функции называются <strong>виртуальными функциями</strong>.</p>
+<p>Общий пример:</p>
+<p>Пример вызова виртуальной функции производного класса через указатель на базовый класс:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Derived d<span class="token punctuation">;</span>
+    Base<span class="token operator">*</span> b <span class="token operator">=</span> <span class="token operator">&amp;</span>d<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> b<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>  <span class="token comment">// печатает 20</span>
+    Base<span class="token operator">&amp;</span> c <span class="token operator">=</span> d<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">.</span><span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>  <span class="token comment">// печатает 20</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Тип указателя <code>Base*</code> определяет доступные методы, но фактический тип объекта <code>Derived</code> определяет, какая именно реализация функции будет вызвана.</p>
+<p>Результат выполнения программы:</p>
+<pre class=" language-bash"><code class="prism  language-bash">20
+20
+</code></pre>
+<p>Несмотря на то, что переменная b имеет тип Base*, фактически она указывает на объект класса Derived. Поэтому вызывается функция Derived::what().</p>
+<p>Этот механизм называется <em><strong>динамическим связыванием</strong></em>.</p>
+<p><em><strong>Спецификатор override</strong></em></p>
+<p>В современном C++ рекомендуется использовать спецификатор override при переопределении виртуальных функций.</p>
+<p>Он сообщает компилятору, что функция должна переопределять виртуальную функцию базового класса.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Если сигнатура функции будет указана неверно, компилятор выдаст ошибку. Это позволяет избежать распространённых ошибок при переопределении функций.</p>
+<p><em><strong>Явный вызов функции базового класса</strong></em></p>
+<p>Иногда требуется вызвать реализацию виртуальной функции базового класса, даже если она переопределена в производном классе.</p>
+<p>Это можно сделать с помощью указания имени класса:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">20</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Base<span class="token operator">*</span> b <span class="token operator">=</span> <span class="token keyword">new</span> Derived<span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> b<span class="token operator">-</span><span class="token operator">&gt;</span>Base<span class="token operator">::</span><span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>  <span class="token comment">// вызов функции базового класса</span>
+
+    <span class="token keyword">delete</span> b<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Результат:</p>
+<pre class=" language-bash"><code class="prism  language-bash">10
+</code></pre>
+<p><em><strong>Виртуальные деструкторы</strong></em></p>
+<p>Если объект производного класса удаляется через указатель на базовый класс, деструктор базового класса должен быть виртуальным.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Base destructor\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token operator">~</span><span class="token function">Derived</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Derived destructor\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Base<span class="token operator">*</span> obj <span class="token operator">=</span> <span class="token keyword">new</span> Derived<span class="token punctuation">;</span>
+    <span class="token keyword">delete</span> obj<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Результат выполнения программы:</p>
+<pre class=" language-bash"><code class="prism  language-bash">Derived destructor
+Base destructor
+</code></pre>
+<p>Сначала вызывается деструктор производного класса, затем — базового класса.</p>
+<p><em><strong>Ошибка при отсутствии виртуального деструктора</strong></em></p>
+<p>Если деструктор базового класса не объявлен виртуальным, то при удалении объекта через указатель на базовый класс будет вызван только деструктор базового класса.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">Base</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token operator">~</span><span class="token function">Base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Base destructor\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> Base <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token operator">~</span><span class="token function">Derived</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Derived destructor\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Base<span class="token operator">*</span> obj <span class="token operator">=</span> <span class="token keyword">new</span> Derived<span class="token punctuation">;</span>
+    <span class="token keyword">delete</span> obj<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Вывод программы:</p>
+<pre class=" language-bash"><code class="prism  language-bash">Base destructor
+</code></pre>
+<p>Деструктор <code>Derived</code> вызван не будет, что может привести к утечкам памяти и некорректному освобождению ресурсов.</p>
+<p>Поэтому в базовых классах, предназначенных для наследования, деструктор рекомендуется объявлять виртуальным.</p>
+<h3 id="абстрактные-классы">Абстрактные классы</h3>
+<p>В языке C++ иногда требуется описать общий интерфейс для группы классов, но при этом не создавать объекты самого базового класса.</p>
+<p>Для этого используются <em>абстрактные классы</em>.</p>
+<p><em><strong>Абстрактный класс</strong></em> — это класс, который содержит хотя бы одну <em>чисто виртуальную функцию</em>.</p>
+<p><em><strong>Чисто виртуальная функция</strong></em> — это виртуальная функция, которая не имеет реализации в базовом классе и должна быть переопределена в производных классах.</p>
+<p><em>Чисто виртуальная функция</em> объявляется следующим образом:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">virtual</span> <span class="token operator">&lt;</span>тип имя_функции<span class="token punctuation">(</span>параметры<span class="token punctuation">)</span><span class="token operator">&gt;</span>  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Например:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">Abstract</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Запись <code>= 0</code> означает, что функция является <em>чисто виртуальной</em>.</p>
+<p><em><strong>Особенности абстрактных классов</strong></em></p>
+<p><em>Абстрактные классы</em> имеют следующие свойства:</p>
+<ul>
+<li>нельзя создавать объекты абстрактного класса;</li>
+<li>можно создавать указатели и ссылки на абстрактный класс;</li>
+<li>производные классы должны переопределять все чисто виртуальные функции.</li>
+</ul>
+<p>Если производный класс не реализует все чисто виртуальные функции базового класса, то он также считается абстрактным классом.</p>
+<p><em><strong>Пример использования абстрактного класса</strong></em></p>
+<p>Рассмотрим пример.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Abstract</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Abstract</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Concrete</span> <span class="token operator">:</span> <span class="token keyword">public</span> Abstract <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Класс <code>Abstract</code> является абстрактным, так как содержит чисто виртуальную функцию what().</p>
+<p>Создавать объекты этого класса нельзя:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">Abstract a<span class="token punctuation">;</span>   <span class="token comment">// ошибка компиляции</span>
+</code></pre>
+<p>Однако можно создавать указатели или ссылки на абстрактный класс:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">Abstract<span class="token operator">*</span> ptr<span class="token punctuation">;</span>
+</code></pre>
+<p><em><strong>Работа с объектами производных классов</strong></em></p>
+<p>Абстрактные классы часто используются для работы с объектами разных классов через единый интерфейс.</p>
+<p>Пример:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Abstract</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Abstract</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Concrete</span> <span class="token operator">:</span> <span class="token keyword">public</span> Abstract <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">foo</span><span class="token punctuation">(</span>Abstract<span class="token operator">&amp;</span> a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">.</span><span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Concrete c<span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token function">foo</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Результат выполнения программы:</p>
+<pre class=" language-bash"><code class="prism  language-bash">10
+</code></pre>
+<p>Функция <code>foo()</code> принимает ссылку на абстрактный класс, но в неё можно передать объект любого производного класса.</p>
+<p>Благодаря <em>механизму динамического связывания</em> будет вызвана соответствующая реализация функции what().</p>
+<p><em><strong>Использование абстрактных классов</strong></em></p>
+<p>Абстрактные классы используются для описания общего интерфейса группы классов.</p>
+<p>Например, в системе университета можно создать базовый абстрактный класс <code>Human</code>, от которого будут наследоваться классы:</p>
+<pre><code>Human
+ ├ Student
+ └ Teacher
+</code></pre>
+<p>Базовый класс может содержать общие свойства и методы, а также объявлять виртуальные функции, которые должны реализовываться в производных классах.</p>
+<p>Такой подход позволяет:</p>
+<ul>
+<li>уменьшить дублирование кода;</li>
+<li>упростить поддержку программы;</li>
+<li>работать с различными объектами через единый интерфейс.</li>
+</ul>
+<blockquote>
+<p><em>Важное замечание</em><br>
+В абстрактных классах рекомендуется объявлять виртуальный деструктор:<br>
+<code>virtual ~Abstract() {}</code>. Это необходимо для корректного удаления объектов производных классов через указатель на базовый класс.</p>
+</blockquote>
+</div>
+</body>
+
+</html>
