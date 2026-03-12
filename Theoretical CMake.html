@@ -1,164 +1,149 @@
-﻿>Теоретические сведения по C++ для студентов курса “Программирование на основе классов и шабллонов” кафедры ИУ5 МГТУ им. Н.Э. Баумана.
+﻿<!DOCTYPE html>
+<html>
 
-## Содержание <!-- omit in toc -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theoretical on CMake.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
 
-- [Разработка кроссплатформенных приложений](#разработка-кроссплатформенных-приложений)
-  - [1. Что такое CMake](#1-что-такое-cmake)
-  - [2. In-source и Out-of-source сборка](#2-in-source-и-out-of-source-сборка)
-  - [3. Язык CMake. Синтаксис](#3-язык-cmake-синтаксис)
-  - [4. Переменные](#4-переменные)
-  - [5. Списки](#5-списки)
-  - [6. Targets — основа CMake](#6-targets--основа-cmake)
-  - [7. Области видимости](#7-области-видимости)
-  - [8. Стандарт C++](#8-стандарт-c)
-  - [9. Библиотеки](#9-библиотеки)
-  - [10. Линковка](#10-линковка)
-  - [11. Структура проекта](#11-структура-проекта)
-  - [12. Внешние зависимости FetchContent](#12-внешние-зависимости-fetchcontent)
-  - [13. Тестирование CTest](#13-тестирование-ctest)
-  - [14. Пользовательские опции](#14-пользовательские-опции)
-  - [15. install и find\_package](#15-install-и-find_package)
-  - [16. CMakePresets.json](#16-cmakepresetsjson)
-  - [17. Минимальный шаблон](#17-минимальный-шаблон)
-  - [18. Четыре примера](#18-четыре-примера)
-
-### Разработка кроссплатформенных приложений
-
-Разработка программного обеспечения требует множества инструментов: компиляторов, сборщиков, тестовых фреймворков и систем упаковки. Кроссплатформенные проекты усложняют этот процесс, так как не всегда можно использовать интегрированные среды разработки вроде Xcode или Visual Studio.
-
-CMake облегчает работу, объединяя настройку, сборку, тестирование и упаковку в едином инструменте. Он генерирует файлы проекта для выбранной платформы и инструмента сборки, а встроенные CTest и CPack позволяют автоматизировать тестирование и создание пакетов. Все этапы управления сборкой можно выполнять напрямую через CMake.
-
-Перед использованием следует установить актуальную версию CMake — многие платформы поставляют устаревшие версии через менеджеры пакетов.
-
-#### 1. Что такое CMake
-
-CMake — это **генератор систем сборки**, а не компилятор.
-
-```
-CMakeLists.txt
+<body class="stackedit">
+  <div class="stackedit__html"><blockquote>
+<p>Теоретические сведения по C++ для студентов курса “Программирование на основе классов и шабллонов” кафедры ИУ5 МГТУ им. Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9">Разработка кроссплатформенных приложений</a>
+<ul>
+<li><a href="#1-%D1%87%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-cmake">1. Что такое CMake</a></li>
+<li><a href="#2-in-source-%D0%B8-out-of-source-%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0">2. In-source и Out-of-source сборка</a></li>
+<li><a href="#3-%D1%8F%D0%B7%D1%8B%D0%BA-cmake-%D1%81%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%81">3. Язык CMake. Синтаксис</a></li>
+<li><a href="#4-%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5">4. Переменные</a></li>
+<li><a href="#5-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B8">5. Списки</a></li>
+<li><a href="#6-targets--%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0-cmake">6. Targets — основа CMake</a></li>
+<li><a href="#7-%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8-%D0%B2%D0%B8%D0%B4%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8">7. Области видимости</a></li>
+<li><a href="#8-%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82-c">8. Стандарт C++</a></li>
+<li><a href="#9-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B8">9. Библиотеки</a></li>
+<li><a href="#10-%D0%BB%D0%B8%D0%BD%D0%BA%D0%BE%D0%B2%D0%BA%D0%B0">10. Линковка</a></li>
+<li><a href="#11-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0">11. Структура проекта</a></li>
+<li><a href="#12-%D0%B2%D0%BD%D0%B5%D1%88%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-fetchcontent">12. Внешние зависимости FetchContent</a></li>
+<li><a href="#13-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-ctest">13. Тестирование CTest</a></li>
+<li><a href="#14-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B5-%D0%BE%D0%BF%D1%86%D0%B8%D0%B8">14. Пользовательские опции</a></li>
+<li><a href="#15-install-%D0%B8-find_package">15. install и find_package</a></li>
+<li><a href="#16-cmakepresetsjson">16. CMakePresets.json</a></li>
+<li><a href="#17-%D0%BC%D0%B8%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD">17. Минимальный шаблон</a></li>
+<li><a href="#18-%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0">18. Четыре примера</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="разработка-кроссплатформенных-приложений">Разработка кроссплатформенных приложений</h3>
+<p>Разработка программного обеспечения требует множества инструментов: компиляторов, сборщиков, тестовых фреймворков и систем упаковки. Кроссплатформенные проекты усложняют этот процесс, так как не всегда можно использовать интегрированные среды разработки вроде Xcode или Visual Studio.</p>
+<p>CMake облегчает работу, объединяя настройку, сборку, тестирование и упаковку в едином инструменте. Он генерирует файлы проекта для выбранной платформы и инструмента сборки, а встроенные CTest и CPack позволяют автоматизировать тестирование и создание пакетов. Все этапы управления сборкой можно выполнять напрямую через CMake.</p>
+<p>Перед использованием следует установить актуальную версию CMake — многие платформы поставляют устаревшие версии через менеджеры пакетов.</p>
+<h4 id="что-такое-cmake">1. Что такое CMake</h4>
+<p>CMake — это <strong>генератор систем сборки</strong>, а не компилятор.</p>
+<pre><code>CMakeLists.txt
    ↓ (configure)
 CMake
    ↓ (generate)
 Makefiles / Ninja / Visual Studio / Xcode
    ↓
 Компилятор (gcc / clang / MSVC)
-```
-
-CMake позволяет описать проект **один раз** и собирать его на разных платформах.
-
-#### 2. In-source и Out-of-source сборка
-
-```bash
-cmake .
-make
-```
- bad
-
-```bash
-cmake -S . -B build
+</code></pre>
+<p>CMake позволяет описать проект <strong>один раз</strong> и собирать его на разных платформах.</p>
+<h4 id="in-source-и-out-of-source-сборка">2. In-source и Out-of-source сборка</h4>
+<pre class=" language-bash"><code class="prism  language-bash">cmake <span class="token keyword">.</span>
+<span class="token function">make</span>
+</code></pre>
+<p>bad</p>
+<pre class=" language-bash"><code class="prism  language-bash">cmake -S <span class="token keyword">.</span> -B build
 cmake --build build
-```
-ok
-
-Преимущества out-of-source:
-
-- чистые исходники
-- несколько конфигураций
-- простая очистка
-
-#### 3. Язык CMake. Синтаксис
-
-```cmake
-command(ARG1 ARG2 ...)
-```
-
-Особенности:
-
-- регистр не важен
-- комментарии начинаются с #
-- всё — строки
-
-#### 4. Переменные
-
-```cmake
-set(MY_VAR "hello")
+</code></pre>
+<p>ok</p>
+<p>Преимущества out-of-source:</p>
+<ul>
+<li>чистые исходники</li>
+<li>несколько конфигураций</li>
+<li>простая очистка</li>
+</ul>
+<h4 id="язык-cmake.-синтаксис">3. Язык CMake. Синтаксис</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">command(ARG1 ARG2 ...)
+</code></pre>
+<p>Особенности:</p>
+<ul>
+<li>регистр не важен</li>
+<li>комментарии начинаются с #</li>
+<li>всё — строки</li>
+</ul>
+<h4 id="переменные">4. Переменные</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(MY_VAR "hello")
 message(STATUS "${MY_VAR}")
-```
-
-Проверка:
-```cmake
-if(DEFINED MY_VAR)
+</code></pre>
+<p>Проверка:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">if(DEFINED MY_VAR)
 endif()
-```
-
-#### 5. Списки
-
-```cmake
-set(SOURCES a.cpp b.cpp c.cpp)
+</code></pre>
+<h4 id="списки">5. Списки</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(SOURCES a.cpp b.cpp c.cpp)
 add_executable(app ${SOURCES})
-```
-
-#### 6. Targets — основа CMake
-
-Target — это логическая единица сборки (цель):
-
-- исполняемый файл
-- библиотека
-- интерфейсная библиотека
-
-```cmake
-add_executable(app main.cpp)
+</code></pre>
+<h4 id="targets-—-основа-cmake">6. Targets — основа CMake</h4>
+<p>Target — это логическая единица сборки (цель):</p>
+<ul>
+<li>исполняемый файл</li>
+<li>библиотека</li>
+<li>интерфейсная библиотека</li>
+</ul>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_executable(app main.cpp)
 add_library(mylib src.cpp)
-```
-
-#### 7. Области видимости
-
-```cmake
-target_include_directories(mylib
+</code></pre>
+<h4 id="области-видимости">7. Области видимости</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_include_directories(mylib
     PUBLIC include
     PRIVATE src
 )
-```
+</code></pre>
 
-| Ключ | Назначение |
-|------|------------|
-| PRIVATE | только цель |
-| PUBLIC | цель + потребители |
-| INTERFACE | только потребители |
-
-#### 8. Стандарт C++
-
-```cmake
-set(CMAKE_CXX_STANDARD 20)
-```
-bad
-
-```cmake
-target_compile_features(app PRIVATE cxx_std_20)
-```
-
-ok
-
-#### 9. Библиотеки
-
-```cmake
-add_library(static_lib STATIC src.cpp)
+<table>
+<thead>
+<tr>
+<th>Ключ</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIVATE</td>
+<td>только цель</td>
+</tr>
+<tr>
+<td>PUBLIC</td>
+<td>цель + потребители</td>
+</tr>
+<tr>
+<td>INTERFACE</td>
+<td>только потребители</td>
+</tr>
+</tbody>
+</table><h4 id="стандарт-c">8. Стандарт C++</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">set(CMAKE_CXX_STANDARD 20)
+</code></pre>
+<p>bad</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_compile_features(app PRIVATE cxx_std_20)
+</code></pre>
+<p>ok</p>
+<h4 id="библиотеки">9. Библиотеки</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">add_library(static_lib STATIC src.cpp)
 add_library(shared_lib SHARED src.cpp)
 add_library(header_only INTERFACE)
-```
-
-#### 10. Линковка
-
-```cmake
-target_link_libraries(app PRIVATE mylib)
-```
-
-CMake автоматически передаёт include-директории, флаги и определения.
-
-#### 11. Структура проекта
-
-```
-project/
+</code></pre>
+<h4 id="линковка">10. Линковка</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE mylib)
+</code></pre>
+<p>CMake автоматически передаёт include-директории, флаги и определения.</p>
+<h4 id="структура-проекта">11. Структура проекта</h4>
+<pre><code>project/
 ├── CMakeLists.txt
 ├── src/
 │   ├── CMakeLists.txt
@@ -166,22 +151,16 @@ project/
 ├── include/
 ├── tests/
 │   └── CMakeLists.txt
-```
-
-Корневой `CMakeLists.txt`:
-
-```cmake
-cmake_minimum_required(VERSION 3.20)
+</code></pre>
+<p>Корневой <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
 project(MyProject LANGUAGES CXX)
 
 add_subdirectory(src)
 add_subdirectory(tests)
-```
-
-#### 12. Внешние зависимости FetchContent
-
-```cmake
-include(FetchContent)
+</code></pre>
+<h4 id="внешние-зависимости-fetchcontent">12. Внешние зависимости FetchContent</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">include(FetchContent)
 
 FetchContent_Declare(
     fmt
@@ -190,308 +169,237 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(fmt)
-```
-
-Использование:
-
-```cmake
-target_link_libraries(app PRIVATE fmt::fmt)
-```
-
-#### 13. Тестирование CTest
-
-```cmake
-enable_testing()
+</code></pre>
+<p>Использование:</p>
+<pre class=" language-cmake"><code class="prism  language-cmake">target_link_libraries(app PRIVATE fmt::fmt)
+</code></pre>
+<h4 id="тестирование-ctest">13. Тестирование CTest</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">enable_testing()
 add_executable(test1 test.cpp)
 add_test(NAME unit COMMAND test1)
-```
-
-Запуск:
-```bash
-ctest --test-dir build
-```
-
-#### 14. Пользовательские опции
-
-```cmake
-option(ENABLE_WARNINGS "Enable warnings" ON)
+</code></pre>
+<p>Запуск:</p>
+<pre class=" language-bash"><code class="prism  language-bash">ctest --test-dir build
+</code></pre>
+<h4 id="пользовательские-опции">14. Пользовательские опции</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">option(ENABLE_WARNINGS "Enable warnings" ON)
 
 if(ENABLE_WARNINGS)
     target_compile_options(app PRIVATE -Wall -Wextra)
 endif()
-```
-
-#### 15. install и find_package
-
-```cmake
-install(TARGETS mylib EXPORT MyLibTargets)
+</code></pre>
+<h4 id="install-и-find_package">15. install и find_package</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">install(TARGETS mylib EXPORT MyLibTargets)
 install(DIRECTORY include/ DESTINATION include)
-```
-
-#### 16. CMakePresets.json
-
-```json
-{
-  "version": 3,
-  "configurePresets": [
-    {
-      "name": "debug",
-      "generator": "Ninja",
-      "binaryDir": "build/debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    }
-  ]
-}
-```
-
-#### 17. Минимальный шаблон
-
-```cmake
-cmake_minimum_required(VERSION 3.20)
+</code></pre>
+<h4 id="cmakepresets.json">16. CMakePresets.json</h4>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+  <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token string">"configurePresets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"generator"</span><span class="token punctuation">:</span> <span class="token string">"Ninja"</span><span class="token punctuation">,</span>
+      <span class="token string">"binaryDir"</span><span class="token punctuation">:</span> <span class="token string">"build/debug"</span><span class="token punctuation">,</span>
+      <span class="token string">"cacheVariables"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"CMAKE_BUILD_TYPE"</span><span class="token punctuation">:</span> <span class="token string">"Debug"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="минимальный-шаблон">17. Минимальный шаблон</h4>
+<pre class=" language-cmake"><code class="prism  language-cmake">cmake_minimum_required(VERSION 3.20)
 project(App LANGUAGES CXX)
 
 add_executable(app src/main.cpp)
 
 target_compile_features(app PRIVATE cxx_std_23)
 target_compile_options(app PRIVATE -Wall -Wextra)
-```
+</code></pre>
+<h4 id="четыре-примера">18. Четыре примера</h4>
+<p>От простого к сложному</p>
+<p><em><strong>example1</strong></em></p>
+<p>В проекте есть два файла <code>main.cpp</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 
-#### 18. Четыре примера
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 
-От простого к сложному
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, this is first CMake example!\n"</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>и <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-***example1***
+<span class="token function">project</span><span class="token punctuation">(</span>example1<span class="token punctuation">)</span>
 
-В проекте есть два файла `main.cpp`:
+<span class="token function">add_executable</span><span class="token punctuation">(</span>hello main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
 
-```cpp
-#include <iostream>
-
-int main(int, char**){
-
-   std::cout << "hello, this is first CMake example!\n";
-   return 0;
-}
-```
-
-и `CMakeLists.txt`:
-
-```cpp
-cmake_minimum_required(VERSION 3.5)
-
-project(example1)
-
-add_executable(hello main.cpp)
-
-set_target_properties(
+<span class="token function">set_target_properties</span><span class="token punctuation">(</span>
     hello PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD <span class="token number">11</span>
     CXX_STANDARD_REQUIRED ON
-)
-```
+<span class="token punctuation">)</span>
+</code></pre>
+<p>для запуска <em>CMake</em>, обычно, создают дополнительную директорию (<code>build</code> или <code>temp</code> или с другим именем, куда <em>CMake</em> будет генерировать файлы системы сборки (например, <code>Makefile</code> или файлы для <code>Ninja</code>). которые содержат информацию про ОС, компиляторы, библиотеки на устройстве с которого был запущенн <em>CMake</em>, иначе они будут лежать в корне вашего проекта)<br>
+для запуска <code>cmake</code> из этой директории необходимо перейти в директорию “выше” (<code>..</code>) и в директории еxample1 обратиться к файлу  <code>CMakeLists.txt</code></p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">mkdir</span> build
+<span class="token function">cd</span> build
+cmake <span class="token punctuation">..</span>/еxample1/
+</code></pre>
+<p>После того как <em>CMake</em> сгенерирует файлы-системы сборки, можно запустить сборку вашего проекта в соответствии с target-целью поставленной перед <em>CMake</em> командой:</p>
+<pre class=" language-bash"><code class="prism  language-bash">cmake --build <span class="token keyword">.</span>
+</code></pre>
+<p>в результате появиться исполняемый файл <code>hello</code> (в директории <code>build</code>) в соответствии с <code>add_executable(hello main.cpp)</code>.</p>
+<p><em><strong>example2</strong></em></p>
+<p>много-файловый проект:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">//main.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"version.h"</span></span>
 
-для запуска *CMake*, обычно, создают дополнительную директорию (`build` или `temp` или с другим именем, куда *CMake* будет генерировать файлы системы сборки (например, `Makefile` или файлы для `Ninja`). которые содержат информацию про ОС, компиляторы, библиотеки на устройстве с которого был запущенн *CMake*, иначе они будут лежать в корне вашего проекта)
-для запуска `cmake` из этой директории необходимо перейти в директорию "выше" (`..`) и в директории еxample1 обратиться к файлу  `CMakeLists.txt`
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 
-```bash
-mkdir build
-cd build
-cmake ../еxample1/
-```
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello from the second Cmake example! \n"</span><span class="token punctuation">;</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Version = "</span> <span class="token operator">&lt;&lt;</span> examples<span class="token operator">::</span><span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span>  <span class="token string">'\n'</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-После того как *CMake* сгенерирует файлы-системы сборки, можно запустить сборку вашего проекта в соответствии с target-целью поставленной перед *CMake* командой:
+<span class="token comment">// version.h</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
 
-```bash
-cmake --build .
-```
+<span class="token keyword">namespace</span> examples<span class="token punctuation">{</span>
 
-в результате появиться исполняемый файл `hello` (в директории `build`) в соответствии с `add_executable(hello main.cpp)`.
+    <span class="token keyword">int</span> <span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-***example2***
+<span class="token punctuation">}</span>
 
-много-файловый проект:
+<span class="token comment">//version.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"version.h"</span></span>
 
-```cpp
-//main.cpp
-#include "version.h"
+<span class="token keyword">int</span> examples<span class="token operator">::</span><span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>и <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-#include <iostream>
+<span class="token function">project</span><span class="token punctuation">(</span>example2<span class="token punctuation">)</span>
 
-int main(int, char**){
-   std::cout << "hello from the second Cmake example! \n";
-   std::cout << "Version = " << examples::getVersion() <<  '\n';
-   return 0;
-}
+<span class="token macro property">#add_executable(version main.cpp version.cpp version.h)</span>
+<span class="token macro property">#add_executable(version main.cpp version.cpp)</span>
 
-// version.h
-#pragma once
+<span class="token function">set</span><span class="token punctuation">(</span>SOURCES
+        main<span class="token punctuation">.</span>cpp
+        version<span class="token punctuation">.</span>cpp
+ <span class="token punctuation">)</span>
+ <span class="token function">set</span><span class="token punctuation">(</span>HEADERS
+        version<span class="token punctuation">.</span>h
+<span class="token punctuation">)</span>
 
-namespace examples{
+<span class="token function">add_executable</span><span class="token punctuation">(</span>version $<span class="token punctuation">{</span>SOURCES<span class="token punctuation">}</span> $<span class="token punctuation">{</span>HEADERS<span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-    int getVersion();
-
-}
-
-//version.cpp
-#include "version.h"
-
-int examples::getVersion(){
-    return 0;
-}
-```
-
-и `CMakeLists.txt`:
-
-```cpp
-cmake_minimum_required(VERSION 3.5)
-
-project(example2)
-
-#add_executable(version main.cpp version.cpp version.h)
-#add_executable(version main.cpp version.cpp)
-
-set(SOURCES
-        main.cpp
-        version.cpp
- )
- set(HEADERS
-        version.h
-)
-
-add_executable(version ${SOURCES} ${HEADERS})
-
-set_target_properties(
+<span class="token function">set_target_properties</span><span class="token punctuation">(</span>
     version PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD <span class="token number">11</span>
     CXX_STANDARD_REQUIRED ON
-)
-```
+<span class="token punctuation">)</span>
+</code></pre>
+<p><em><strong>example3</strong></em></p>
+<p>также много-файловый проект, плюс генерация файла через configure_file</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">//main.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"version.h"</span></span>
 
-***example3***
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 
-также много-файловый проект, плюс генерация файла через configure_file
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello from the third Cmake example! \n"</span><span class="token punctuation">;</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Version = "</span> <span class="token operator">&lt;&lt;</span> examples<span class="token operator">::</span><span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span>  <span class="token string">'\n'</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">// version.h</span>
+<span class="token keyword">namespace</span> examples<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">//version.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"version.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"config.h"</span></span>
 
-```cpp
-//main.cpp
-#include "version.h"
+<span class="token keyword">namespace</span> examples <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>PROJECT_VERSION_PATCH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">//config.h.in</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
 
-#include <iostream>
+<span class="token macro property">#cmakedefine PROJECT_VERSION @PROJECT_VERSION@</span>
+</code></pre>
+<p><code>config.h.in</code> - Это шаблон файла, который будет обработан <em>CMake</em>.</p>
+<p>если переменная определена — будет создан <code>define</code> - <code>#cmakedefine PROJECT_VERSION @PROJECT_VERSION@</code></p>
+<blockquote>
+<p>но есть ньюанс <code>#cmakedefine PROJECT_VERSION @PROJECT_VERSION_PATCH@</code> возвращает <code>"0.0.1"</code> , а это строка и поэтому программа выведет <code>Version = 1</code>, можно получить каждую цифру <code>#cmakedefine PROJECT_VERSION_MAJOR @PROJECT_VERSION_MAJOR@</code>, <code>#cmakedefine PROJECT_VERSION_MINOR @PROJECT_VERSION_MINOR@</code>,<code>#cmakedefine PROJECT_VERSION_PATCH @PROJECT_VERSION_PATCH@</code>, можно придумать и по другому - :)</p>
+</blockquote>
+<p>После обработки <code>configure_file()</code> <em>CMake</em> создаст файл:</p>
+<pre class=" language-bash"><code class="prism  language-bash">build/config.h
+</code></pre>
+<p>Пример того, что может получиться:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> PROJECT_VERSION 1</span>
+</code></pre>
+<p>и <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-int main(int, char**){
-   std::cout << "hello from the third Cmake example! \n";
-   std::cout << "Version = " << examples::getVersion() <<  '\n';
-   return 0;
-}
-//__________
-// version.h
-namespace examples{
-    int getVersion();
-}
-//__________
-//version.cpp
-#include "version.h"
-#include "config.h"
+<span class="token function">project</span><span class="token punctuation">(</span>example3 VERSION <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">1</span><span class="token punctuation">)</span>
 
-namespace examples {
-    int getVersion(){
-        return (PROJECT_VERSION_PATCH);
-    }
-}
-//__________
-//config.h.in
-#pragma once
+<span class="token function">configure_file</span><span class="token punctuation">(</span>
+    config<span class="token punctuation">.</span>h<span class="token punctuation">.</span>in
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span><span class="token operator">/</span>config<span class="token punctuation">.</span>h
+<span class="token punctuation">)</span>
 
-#cmakedefine PROJECT_VERSION @PROJECT_VERSION@
-```
+<span class="token function">set</span><span class="token punctuation">(</span>SOURCES
+        main<span class="token punctuation">.</span>cpp
+        version<span class="token punctuation">.</span>cpp
+ <span class="token punctuation">)</span>
+ <span class="token function">set</span><span class="token punctuation">(</span>HEADERS
+        version<span class="token punctuation">.</span>h
+<span class="token punctuation">)</span>
 
-`config.h.in` - Это шаблон файла, который будет обработан *CMake*.
+<span class="token function">add_executable</span><span class="token punctuation">(</span>configure $<span class="token punctuation">{</span>SOURCES<span class="token punctuation">}</span> $<span class="token punctuation">{</span>HEADERS<span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-если переменная определена — будет создан `define` - `#cmakedefine PROJECT_VERSION @PROJECT_VERSION@`
-
-> но есть ньюанс `#cmakedefine PROJECT_VERSION @PROJECT_VERSION_PATCH@` возвращает `"0.0.1"` , а это строка и поэтому программа выведет `Version = 1`, можно получить каждую цифру `#cmakedefine PROJECT_VERSION_MAJOR @PROJECT_VERSION_MAJOR@`, `#cmakedefine PROJECT_VERSION_MINOR @PROJECT_VERSION_MINOR@`,`#cmakedefine PROJECT_VERSION_PATCH @PROJECT_VERSION_PATCH@`, можно придумать и по другому - :)
-
-После обработки `configure_file()` *CMake* создаст файл:
-
-```bash
-build/config.h
-```
-
-Пример того, что может получиться:
-
-```cpp
-#define PROJECT_VERSION 1
-```
-
-и `CMakeLists.txt`:
-
-```cpp
-cmake_minimum_required(VERSION 3.5)
-
-project(example3 VERSION 0.0.1)
-
-configure_file(
-    config.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/config.h
-)
-
-set(SOURCES
-        main.cpp
-        version.cpp
- )
- set(HEADERS
-        version.h
-)
-
-add_executable(configure ${SOURCES} ${HEADERS})
-
-set_target_properties(
+<span class="token function">set_target_properties</span><span class="token punctuation">(</span>
     configure PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD <span class="token number">11</span>
     CXX_STANDARD_REQUIRED ON
-)
+<span class="token punctuation">)</span>
 
-target_include_directories(
+<span class="token function">target_include_directories</span><span class="token punctuation">(</span>
     configure
     PRIVATE
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
-```
-
-Этот пример показывает три важные вещи *CMake*:
-
-1 - *Переменные проекта*
-
-`project(example3 VERSION 0.0.1)`
-
-создаёт переменные:
-
-- `PROJECT_VERSION`
-- PROJECT_VERSION_MAJOR
-- PROJECT_VERSION_MINOR
-- PROJECT_VERSION_PATCH
-
-2️ - *Генерацию файлов*
-
-`configure_file(config.h.in config.h)`
-
-*CMake* подставляет значения переменных в шаблон.
-
-3️ - Работа с `include` директориями
-
-`target_include_directories(...)`
-
-нужна потому что `config.h` лежит в `build`-директории, а не в исходниках.
-
-***example4***
-
-использование структурs много-модульного проекта и создание статической библиотеки
-
-*Структура проекта*
-
-```
-example4
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Этот пример показывает три важные вещи <em>CMake</em>:</p>
+<p>1 - <em>Переменные проекта</em></p>
+<p><code>project(example3 VERSION 0.0.1)</code></p>
+<p>создаёт переменные:</p>
+<ul>
+<li><code>PROJECT_VERSION</code></li>
+<li>PROJECT_VERSION_MAJOR</li>
+<li>PROJECT_VERSION_MINOR</li>
+<li>PROJECT_VERSION_PATCH</li>
+</ul>
+<p>2️ - <em>Генерацию файлов</em></p>
+<p><code>configure_file(config.h.in config.h)</code></p>
+<p><em>CMake</em> подставляет значения переменных в шаблон.</p>
+<p>3️ - Работа с <code>include</code> директориями</p>
+<p><code>target_include_directories(...)</code></p>
+<p>нужна потому что <code>config.h</code> лежит в <code>build</code>-директории, а не в исходниках.</p>
+<p><em><strong>example4</strong></em></p>
+<p>использование структурs много-модульного проекта и создание статической библиотеки</p>
+<p><em>Структура проекта</em></p>
+<pre><code>example4
 │
 ├── CMakeLists.txt
 │
@@ -503,154 +411,144 @@ example4
 └── src
     ├── CMakeLists.txt
     └── main.cpp
-```
+</code></pre>
+<ul>
+<li>
+<p><code>lib</code> — создаёт статическую библиотеку</p>
+</li>
+<li>
+<p><code>src</code> — создаёт исполняемый файл</p>
+</li>
+</ul>
+<p>главный <code>CMakeLists.txt</code> объединяет всё вместе.</p>
+<p>Итак, общий <code>CMakeLists.txt</code>:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-- `lib` — создаёт статическую библиотеку
+<span class="token function">project</span><span class="token punctuation">(</span>example4 VERSION <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">2</span><span class="token punctuation">)</span>
 
-- `src` — создаёт исполняемый файл
+<span class="token function">add_subdirectory</span><span class="token punctuation">(</span>lib<span class="token punctuation">)</span>
+<span class="token function">add_subdirectory</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span>
+</code></pre>
+<p><code>add_subdirectory(lib)</code> говорит <em>CMake</em>: перейти в папку <code>lib</code> и выполни файл <code>lib/CMakeLists.txt</code>, добавь созданные <code>targets</code> (например библиотеку) в общий проект.<br>
+То же самое происходит с <code>src</code>.</p>
+<p><em>Создание библиотеки</em></p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">//lib.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"lib.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"config.h"</span></span>
 
-главный `CMakeLists.txt` объединяет всё вместе.
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 
+<span class="token keyword">namespace</span> lib <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">makeSameSuperJob</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello from lib\n"</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">42</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> <span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>PROJECT_VERSION<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">// lib.h</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+<span class="token keyword">namespace</span> lib <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">makeSameSuperJob</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">//config.h.in</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
 
-Итак, общий `CMakeLists.txt`:
+<span class="token macro property">#cmakedefine PROJECT_VERSION @PROJECT_VERSION@</span>
+</code></pre>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-```cpp
-cmake_minimum_required(VERSION 3.5)
+<span class="token function">project</span><span class="token punctuation">(</span>library VERSION <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">2</span><span class="token punctuation">)</span>
 
-project(example4 VERSION 0.0.2)
+<span class="token function">configure_file</span><span class="token punctuation">(</span>
+    config<span class="token punctuation">.</span>h<span class="token punctuation">.</span>in
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span><span class="token operator">/</span>config<span class="token punctuation">.</span>h
+<span class="token punctuation">)</span>
 
-add_subdirectory(lib)
-add_subdirectory(src)
-```
+<span class="token function">add_library</span><span class="token punctuation">(</span>lib STATIC lib<span class="token punctuation">.</span>cpp lib<span class="token punctuation">.</span>h<span class="token punctuation">)</span>
 
-`add_subdirectory(lib)` говорит *CMake*: перейти в папку `lib` и выполни файл `lib/CMakeLists.txt`, добавь созданные `targets` (например библиотеку) в общий проект.
-То же самое происходит с `src`.
-
-*Создание библиотеки*
-
-```cpp
-//lib.cpp
-#include "lib.h"
-#include "config.h"
-
-#include <iostream>
-
-namespace lib {
-    int makeSameSuperJob(){
-        std::cout << "Hello from lib\n";
-        return 42;
-    }
-    int getVersion(){
-        return (PROJECT_VERSION);
-    }
-}
-//__________
-// lib.h
-#pragma once
-namespace lib {
-    int makeSameSuperJob();
-    int getVersion();
-}
-//__________
-//config.h.in
-#pragma once
-
-#cmakedefine PROJECT_VERSION @PROJECT_VERSION@
-```
-
-```cpp
-cmake_minimum_required(VERSION 3.5)
-
-project(library VERSION 0.0.2)
-
-configure_file(
-    config.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/config.h
-)
-
-add_library(lib STATIC lib.cpp lib.h)
-
-set_target_properties(
+<span class="token function">set_target_properties</span><span class="token punctuation">(</span>
     lib PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD <span class="token number">11</span>
     CXX_STANDARD_REQUIRED
-)
+<span class="token punctuation">)</span>
 
-target_include_directories(
+<span class="token function">target_include_directories</span><span class="token punctuation">(</span>
     lib
     PUBLIC
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span>
+<span class="token punctuation">)</span>
 
-```
+</code></pre>
+<p><code>target_include_directories(lib PUBLIC ...)</code> говорит компилятору, где искать заголовки. <code>PUBLIC</code> означает: библиотека сама использует этот <code>include</code> и передаёт его всем <em>target</em>’ам, которые будут линковаться с <code>lib</code>.</p>
+<p><em>создание приложения, использующее написанную библиотеку</em></p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token comment">//main.cpp</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"config.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"lib.h"</span></span>
 
-`target_include_directories(lib PUBLIC ...)` говорит компилятору, где искать заголовки. `PUBLIC` означает: библиотека сама использует этот `include` и передаёт его всем *target*'ам, которые будут линковаться с `lib`.
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 
-*создание приложения, использующее написанную библиотеку*
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello from main! \n"</span><span class="token punctuation">;</span>
+   lib<span class="token operator">::</span><span class="token function">makeSameSupperJob</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Lib version: "</span> <span class="token operator">&lt;&lt;</span> lib<span class="token operator">::</span><span class="token function">getVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span>  <span class="token string">'\n'</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-```cpp
-//main.cpp
-#include "config.h"
-#include "lib.h"
+<span class="token punctuation">}</span>
+<span class="token comment">//__________</span>
+<span class="token comment">//config.h.in</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
 
-#include <iostream>
+<span class="token macro property">#cmakedefine PROJECT_VERSION @PROJECT_VERSION@</span>
+</code></pre>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
 
-int main(int, char**)
-{
-   std::cout << "hello from main! \n";
-   lib::makeSameSupperJob();
-   std::cout << "Lib version: " << lib::getVersion() <<  '\n';
-   return 0;
+<span class="token function">project</span><span class="token punctuation">(</span>Main VERSION <span class="token number">0.0</span><span class="token punctuation">.</span><span class="token number">5</span><span class="token punctuation">)</span>
 
-}
-//__________
-//config.h.in
-#pragma once
+<span class="token function">configure_file</span><span class="token punctuation">(</span>
+    config<span class="token punctuation">.</span>h<span class="token punctuation">.</span>in
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span><span class="token operator">/</span>config<span class="token punctuation">.</span>h
+<span class="token punctuation">)</span>
 
-#cmakedefine PROJECT_VERSION @PROJECT_VERSION@
-```
+<span class="token function">add_executable</span><span class="token punctuation">(</span>mainLib main<span class="token punctuation">.</span>cpp<span class="token punctuation">)</span>
 
-```cpp
-cmake_minimum_required(VERSION 3.5)
-
-project(Main VERSION 0.0.5)
-
-configure_file(
-    config.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/config.h
-)
-
-add_executable(mainLib main.cpp)
-
-set_target_properties(
+<span class="token function">set_target_properties</span><span class="token punctuation">(</span>
     mainLib PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD <span class="token number">11</span>
     CXX_STANDARD_REQUIRED ON
-)
+<span class="token punctuation">)</span>
 
-target_include_directories(
+<span class="token function">target_include_directories</span><span class="token punctuation">(</span>
     mainLib
     PRIVATE
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_BINARY_DIR<span class="token punctuation">}</span>
+<span class="token punctuation">)</span>
 
-target_include_directories(
+<span class="token function">target_include_directories</span><span class="token punctuation">(</span>
     mainLib
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../lib
-)
+    $<span class="token punctuation">{</span>CMAKE_CURRENT_SOURCE_DIR<span class="token punctuation">}</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>lib
+<span class="token punctuation">)</span>
 
-target_link_libraries(
+<span class="token function">target_link_libraries</span><span class="token punctuation">(</span>
     mainLib lib
-)
-```
+<span class="token punctuation">)</span>
+</code></pre>
+<p><em><strong>Рекомендации по изучению</strong></em></p>
+<ol>
+<li>Всегда думать в терминах targets</li>
+<li>Использовать CMake</li>
+<li>Читать чужие проекты</li>
+<li>Использовать CMakePresets</li>
+<li>Не копировать устаревшие примеры</li>
+</ol>
+<hr>
+</div>
+</body>
 
-***Рекомендации по изучению***
-
-1. Всегда думать в терминах targets
-2. Использовать CMake
-3. Читать чужие проекты
-4. Использовать CMakePresets
-5. Не копировать устаревшие примеры
-
----
+</html>
