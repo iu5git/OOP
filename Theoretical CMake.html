@@ -241,8 +241,8 @@ target_compile_options(app PRIVATE -Wall -Wextra)
     CXX_STANDARD_REQUIRED ON
 <span class="token punctuation">)</span>
 </code></pre>
-<p>для запуска <em>CMake</em>, обычно, создают дополнительную директорию (<code>build</code> или <code>temp</code> или с другим именем, куда <em>CMake</em> будет генерировать файлы системы сборки (например, <code>Makefile</code> или файлы для <code>Ninja</code>). которые содержат информацию про ОС, компиляторы, библиотеки на устройстве с которого был запущенн <em>CMake</em>, иначе они будут лежать в корне вашего проекта)<br>
-для запуска <code>cmake</code> из этой директории необходимо перейти в директорию “выше” (<code>..</code>) и в директории еxample1 обратиться к файлу  <code>CMakeLists.txt</code></p>
+<p>для запуска <em>CMake</em>, обычно, создают дополнительную директорию (<code>build</code> или <code>temp</code> или с другим именем, куда <em>CMake</em> будет генерировать файлы системы сборки (например, <code>Makefile</code> или файлы для <code>Ninja</code>), которые содержат информацию про ОС, компиляторы, библиотеки на устройстве с которого был запущенн <em>CMake</em>, иначе они будут лежать в корне вашего проекта).<br>
+Для запуска <code>cmake</code> из этой директории необходимо перейти в директорию “выше” (<code>..</code>) и в директории <code>еxample1</code> обратиться к файлу  <code>CMakeLists.txt</code></p>
 <pre class=" language-bash"><code class="prism  language-bash"><span class="token function">mkdir</span> build
 <span class="token function">cd</span> build
 cmake <span class="token punctuation">..</span>/еxample1/
@@ -397,7 +397,7 @@ cmake <span class="token punctuation">..</span>/еxample1/
 <p><code>target_include_directories(...)</code></p>
 <p>нужна потому что <code>config.h</code> лежит в <code>build</code>-директории, а не в исходниках.</p>
 <p><em><strong>example4</strong></em></p>
-<p>использование структурs много-модульного проекта и создание статической библиотеки</p>
+<p>использование структуры много-модульного проекта и создание статической библиотеки</p>
 <p><em>Структура проекта</em></p>
 <pre><code>example4
 │
