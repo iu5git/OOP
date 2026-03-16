@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Style Guide</title>
+  <title>Style Guide.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
 <body class="stackedit">
   <div class="stackedit__html"><blockquote>
-<p><em>Попытка использовать любой инструмент, не разобравшись хотя бы в основах того, что он делает и как его
-следует использовать, скорее всего, приведет к разочарованию. С другой стороны, если потратить все свое
-время на изучение теории о чем-то без практического применения, это будет довольно скучным занятием и
+<p><em>Попытка использовать любой инструмент, не разобравшись хотя бы в основах того, что он делает и как его<br>
+следует использовать, скорее всего, приведет к разочарованию. С другой стороны, если потратить все свое<br>
+время на изучение теории о чем-то без практического применения, это будет довольно скучным занятием и<br>
 часто приводит к слишком идеалистическому пониманию.</em><br>
 © 2018 Крейг Скотт</p>
 </blockquote>
@@ -28,6 +28,7 @@
 <li><a href="#dry">DRY</a></li>
 <li><a href="#kiss">KISS</a></li>
 <li><a href="#rule-of-five">Rule of Five</a></li>
+<li><a href="#copy-and-swap">Copy-and-swap</a></li>
 </ul>
 <h3 id="общие-правила">Общие правила</h3>
 <blockquote>
@@ -173,6 +174,40 @@ MyClass <span class="token class-name">b</span> <span class="token operator">=</
 <li>используются std::vector, std::unique_ptr, std::string (Rule of Zero).</li>
 </ul>
 <hr>
+<h3 id="copy-and-swap">Copy-and-swap</h3>
+<p><strong>Copy-and-swap</strong> — это распространённая идиома реализации оператора присваивания, которая используется в современных версиях C++ для безопасной работы с ресурсами (например, динамической памятью).</p>
+<p>Она особенно полезна, когда класс содержит владение ресурсами: char*, динамические массивы, файлы, дескрипторы и т.п.</p>
+<p>Идиома состоит из трёх шагов:</p>
+<ol>
+<li>Создаётся копия переданного объекта (используется конструктор копирования).</li>
+<li>Выполняется обмен содержимым текущего объекта и временной копии.</li>
+<li>Временный объект уничтожается, освобождая старые ресурсы.</li>
+</ol>
+<p>Таким образом:</p>
+<ul>
+<li>старые данные удаляются автоматически,</li>
+<li>новый объект получает корректную копию.</li>
+</ul>
+<p><em><strong>Схема оператора присваивания</strong></em></p>
+<pre class=" language-cpp"><code class="prism  language-cpp">ClassName<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span>ClassName other<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Ключевой момент — параметр передаётся по значению.</p>
+<p>Это автоматически вызывает конструктор копирования.</p>
+<p><em><strong>Исключительная безопасность</strong></em></p>
+<p>Если копирование не удалось (например new выбросил исключение),<br>
+текущий объект не изменится.</p>
+<p>Это называется: <em>Strong Exception Guarantee</em></p>
+<p>Без <em><strong>copy-and-swap</strong></em> оператор присваивания обычно выглядит длинным и сложным.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp">MyClass<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span>MyClass <span class="token class-name">other</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span> <span class="token punctuation">{</span>   <span class="token comment">// copy-and-swap</span>
+        std<span class="token operator">::</span><span class="token function">swap</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> other<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>В идиоме <em>copy-and-swap</em> оператор присваивания принимает аргумент по значению. Это приводит к созданию копии объекта ещё до выполнения оператора. После этого выполняется обмен ресурсов текущего объекта и временной копии. При уничтожении временного объекта освобождаются старые ресурсы.</p>
 </div>
 </body>
 
