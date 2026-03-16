@@ -93,7 +93,7 @@
 <li><strong>Использование</strong> <code>std::string</code> <strong>запрещено</strong>; допускается работа только с C-строками.</li>
 <li>Все операции с массивом объектов должны быть корректными и безопасными.</li>
 <li>Работа с файлами должна сопровождаться проверкой успешного открытия файла.</li>
-<li>В данной лабораторной работе обязательно использование идиомы <a href="https://fitoliaka.github.io/OOP/Style%20Guide.html#copy-and-swap">copy-and-swap</a> при реализации оператора присваивания.</li>
+<li>В данной лабораторной работе обязательно использование идиомы <a href="https://fitoliaka.github.io/OOP/Style%20Guide.html#идиома-copy-and-swap-в-c">copy-and-swap</a> при реализации оператора присваивания.</li>
 </ul>
 <hr>
 <h3 id="рекомендуемая-структура-меню-программы">Рекомендуемая структура меню программы</h3>
@@ -112,9 +112,9 @@
 <h3 id="требования-к-реализации">Требования к реализации</h3>
 <ul>
 <li>Размер массива объектов должен быть динамическим задаётся константой.</li>
-<li>При добавлении элементов контролировать переполнение массива и если надо предусмотреть возможность расширить его.</li>
+<li>При добавлении элементов контролировать переполнение массива и если надо предусмотреть возможность его расширить.</li>
 <li>При удалении элементов обеспечивать корректное смещение массива.</li>
-<li>Для сортировки использовать свою библиотеку .</li>
+<li>Для сортировки использовать свою библиотеку.</li>
 <li>Поиск реализовать линейным алгоритмом.</li>
 <li>Код должен быть модульным и хорошо структурированным.</li>
 </ul>
@@ -138,6 +138,10 @@
 
 <span class="token comment">// Операторы присваивания (copy-and-swap)</span>
 Planet<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span>Planet other<span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Перегрузка оператора сравнения</span>
+bool <span class="token keyword">operator</span><span class="token operator">&lt</span><span class="token punctuation">(</span><span class="token keyword">const</span> Planet<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
 
 <span class="token comment">// Методы доступа</span>
 <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
