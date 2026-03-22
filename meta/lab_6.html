@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="наследование.-реализация-шаблонных-классов-container-и-set----omit-in-toc---">6 - Наследование. Реализация шаблонных классов <code>Container</code> и <code>Set</code> <!-- omit in toc --></h1>
+<blockquote>
+<p>Лабораторная работа 6 для студентов курса “Программирование на основе классов и шаблонов” 2 семестра кафедры ИУ5 МГТУ им Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Начало работы</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Задание</a></li>
+<li><a href="#%D1%83%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE-%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Указания по выполнению лабораторной работы</a>
+<ul>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-container">Класс <code>Container</code></a></li>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-set">Класс <code>Set</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="цель-работы">Цель работы</h2>
+<p>Изучить:</p>
+<ul>
+<li>механизм наследования в C++;</li>
+<li>работу с шаблонными классами;</li>
+<li>реализацию динамических структур данных;</li>
+<li>принципы работы ассоциативных контейнеров (множества).</li>
+</ul>
+<h2 id="начало-работы">Начало работы</h2>
+<p>Зайдите в свою локальную директорию с репозиторием для выполнения лабораторных работ. Заберите ветку с соответствующей лабораторной работой из общего репозитория:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream
+</code></pre>
+<p><strong>или</strong></p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream lab_6
+</code></pre>
+<p>Переключитесь на ветку с текущей лабораторной работой:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git checkout lab_6
+</code></pre>
+<p>Свяжите ветку локального репозитория с вашим удаленным репозиторием:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git push --set-upstream origin lab_6
+</code></pre>
+<h2 id="задание">Задание</h2>
+<p>Необходимо реализовать два шаблонных класса:</p>
+<ul>
+<li>Container — базовый класс (динамический массив);</li>
+<li>Set — производный класс (множество).</li>
+</ul>
+<h2 id="указания-по-выполнению-лабораторной-работы">Указания по выполнению лабораторной работы</h2>
+<p><em><strong>Наследование</strong></em> позволяет использовать уже существующие классы для создания новых, расширяя или изменяя их функциональность.</p>
+<p><em><strong>Ассоциативные контейнеры</strong></em> отличаются тем, что доступ к элементам осуществляется по ключу, а не по индексу.</p>
+<p>Контейнер “множество” (<code>set</code>) хранит уникальные элементы и обеспечивает быстрый поиск.</p>
+<p>Для повышения эффективности:</p>
+<ul>
+<li>
+<p>элементы множества хранятся в отсортированном виде;</p>
+</li>
+<li>
+<p>поиск выполняется методом половинного деления (бинарный поиск).</p>
+<p>Бинарный поиск работает только для отсортированных данных, поэтому множество поддерживается в отсортированном виде.</p>
+</li>
+</ul>
+<h3 id="класс-container">Класс <code>Container</code></h3>
+<p><strong>Общая характеристика</strong></p>
+<p>Класс представляет собой динамический массив с автоматическим изменением размера.</p>
+<p><strong>Поля класса</strong></p>
+<ul>
+<li><code>max_size</code> — текущий размер массива;</li>
+<li><code>size</code> — количество элементов;</li>
+<li><code>pdata</code> — указатель на массив элементов.</li>
+</ul>
+<p><strong>Изменение размера</strong></p>
+<p>Размер массива изменяется автоматически:</p>
+<ul>
+<li>
+<p>при добавлении:</p>
+<ul>
+<li>если <code>size &gt;= max_size → max_size *= 2</code></li>
+</ul>
+</li>
+<li>
+<p>при удалении:</p>
+<ul>
+<li>если <code>size &lt; max_size / 4 → max_size /= 2</code></li>
+</ul>
+</li>
+</ul>
+<p>, при этом размер не должен становиться меньше значения по умолчанию.</p>
+<p><strong>Конструкторы и деструктор</strong></p>
+<ul>
+<li>конструктор с параметром (по умолчанию — создание пустого контейнера);</li>
+<li>конструктор копирования;</li>
+<li>конструктор перемещения;</li>
+<li>деструктор.</li>
+</ul>
+<p><strong>Методы</strong></p>
+<ul>
+<li><code>push</code> — добавление элемента в конец;</li>
+<li><code>pop</code> — удаление элемента по индексу;</li>
+<li><code>find(el)</code> — поиск элемента (возвращает индекс или -1);</li>
+<li><code>resize</code> — изменение размера массива.</li>
+</ul>
+<p><strong>Операторы</strong></p>
+<ul>
+<li><code>operator[]</code> — доступ по индексу;</li>
+<li>оператор присваивания;</li>
+<li>перемещающий оператор присваивания.</li>
+</ul>
+<h3 id="класс-set">Класс <code>Set</code></h3>
+<p><strong>Общая характеристика</strong></p>
+<p>Класс <code>Set</code> наследуется от <code>Container</code> и реализует множество:</p>
+<ul>
+<li>элементы уникальны;</li>
+<li>элементы отсортированы.</li>
+</ul>
+<p><strong>Особенности</strong></p>
+<ul>
+<li>новые поля не добавляются;</li>
+<li>используются методы базового класса.</li>
+</ul>
+<p><strong>Методы доступа</strong></p>
+<ul>
+<li><code>is_element(el)</code> — проверка наличия элемента;</li>
+<li><code>q_find(el)</code> — бинарный поиск.</li>
+</ul>
+<p><strong>Методы изменения</strong></p>
+<ul>
+<li><code>push</code> — добавляет элемент только если его нет;<br>
+после добавления выполняется сортировка;</li>
+</ul>
+<p><code>pop</code> — удаляет элемент, если он существует.</p>
+<p><strong>Операторы</strong></p>
+<ul>
+<li><code>+=</code> — объединение множеств;</li>
+<li><code>-=</code> — разность;</li>
+<li><code>*=</code> — пересечение.</li>
+</ul>
+<p><strong>Дружественные функции</strong></p>
+<ul>
+<li>оператор вывода <code>&lt;&lt;</code>;</li>
+</ul>
+<p><strong>Операторы</strong></p>
+<ul>
+<li><code>+</code> — объединение;</li>
+<li><code>-</code> — разность;</li>
+<li><code>*</code> — пересечение;</li>
+<li><code>==</code> — сравнение множеств.</li>
+</ul>
+<p><strong>Примеры операций</strong></p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token punctuation">{</span>1, 4, 5, 6<span class="token punctuation">}</span> + <span class="token punctuation">{</span>1, 2, 3, 4<span class="token punctuation">}</span> → <span class="token punctuation">{</span>1, 2, 3, 4, 5, 6<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>1, 4, 5, 6<span class="token punctuation">}</span> * <span class="token punctuation">{</span>1, 2, 3, 4<span class="token punctuation">}</span> → <span class="token punctuation">{</span>1, 4<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>1, 4, 5, 6<span class="token punctuation">}</span> - <span class="token punctuation">{</span>1, 2, 3, 4<span class="token punctuation">}</span> → <span class="token punctuation">{</span>5, 6<span class="token punctuation">}</span>
+</code></pre>
+<p><em><strong>Особые указания</strong></em></p>
+<blockquote>
+<p>Важно:</p>
+<ul>
+<li>исходный код работает только с <code>char*</code>;</li>
+<li>необходимо:
+<ul>
+<li>сделать классы шаблонными (<code>template &lt;typename T&gt;</code>);</li>
+<li>реализовать поддержку различных типов данных;</li>
+<li>реализовать специализацию для <code>char*</code> (с учётом особенностей сравнения строк).</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Пример использования</strong></p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"containers/Container.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"containers/Set.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">// ===== Container =====</span>
+    Container <span class="token function">v</span><span class="token punctuation">(</span><span class="token string">"Hello!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    v<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Привет!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    v<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    v<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Вектор v: "</span> <span class="token operator">&lt;&lt;</span> v <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Проверка поиска</span>
+    <span class="token keyword">int</span> index <span class="token operator">=</span> v<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Индекс элемента 'World': "</span> <span class="token operator">&lt;&lt;</span> index <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    v<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Another"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    v<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Example"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Вектор v после добавления: "</span> <span class="token operator">&lt;&lt;</span> v <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    Container v1 <span class="token operator">=</span> v<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Копия v1: "</span> <span class="token operator">&lt;&lt;</span> v1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    v1<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"v1 после удаления элемента с индексом 2: "</span> <span class="token operator">&lt;&lt;</span> v1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+
+    <span class="token comment">// ===== Set&lt;char*&gt; =====</span>
+    Set<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">&gt;</span> <span class="token function">s</span><span class="token punctuation">(</span><span class="token string">"Yes"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">s1</span><span class="token punctuation">(</span><span class="token string">"Hello!"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s2<span class="token punctuation">;</span>
+
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Привет!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\nМножество s: "</span> <span class="token operator">&lt;&lt;</span> s <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Проверка наличия элемента</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">is_element</span><span class="token punctuation">(</span><span class="token string">"No"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"'No' есть в множестве s\n"</span><span class="token punctuation">;</span>
+
+    s1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Cat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Dog"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Привет!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Множество s1: "</span> <span class="token operator">&lt;&lt;</span> s1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Разность</span>
+    s2 <span class="token operator">=</span> s1 <span class="token operator">-</span> s<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s2 = s1 - s: "</span> <span class="token operator">&lt;&lt;</span> s2 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Объединение</span>
+    s2 <span class="token operator">=</span> s1 <span class="token operator">+</span> s<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s2 = s1 + s: "</span> <span class="token operator">&lt;&lt;</span> s2 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Пересечение</span>
+    s2 <span class="token operator">=</span> s1 <span class="token operator">*</span> s<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s2 = s1 * s: "</span> <span class="token operator">&lt;&lt;</span> s2 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token comment">// Сравнение</span>
+    Set<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">&gt;</span> s3 <span class="token operator">=</span> s2<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s3: "</span> <span class="token operator">&lt;&lt;</span> s3 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>s3 <span class="token operator">==</span> s2<span class="token punctuation">)</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s3 == s2\n"</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"s3 != s2\n"</span><span class="token punctuation">;</span>
+
+
+    <span class="token comment">// ===== Set&lt;int&gt; =====</span>
+    Set<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> <span class="token function">one</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    one<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    one<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    one<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Set<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> two<span class="token punctuation">;</span>
+    two<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    two<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    two<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\none: "</span> <span class="token operator">&lt;&lt;</span> one <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"two: "</span> <span class="token operator">&lt;&lt;</span> two <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    one <span class="token operator">-</span><span class="token operator">=</span> two<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"one -= two: "</span> <span class="token operator">&lt;&lt;</span> one <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+
+    <span class="token comment">// ===== Set&lt;double&gt; =====</span>
+    Set<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token operator">&gt;</span> <span class="token function">one1</span><span class="token punctuation">(</span><span class="token number">1.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    one1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    one1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3.99</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Set<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token operator">&gt;</span> two1<span class="token punctuation">;</span>
+    two1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    two1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">3.98</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    two1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\none1: "</span> <span class="token operator">&lt;&lt;</span> one1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"two1: "</span> <span class="token operator">&lt;&lt;</span> two1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    one1 <span class="token operator">-</span><span class="token operator">=</span> two1<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"one1 -= two1: "</span> <span class="token operator">&lt;&lt;</span> one1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+
+    <span class="token comment">// ===== Set&lt;string&gt; =====</span>
+    Set<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token operator">&gt;</span> stroka<span class="token punctuation">;</span>
+    stroka<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Привет!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stroka<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stroka<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"Привет!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// дубликат</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\nStroka: "</span> <span class="token operator">&lt;&lt;</span> stroka <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stroka<span class="token punctuation">.</span><span class="token function">is_element</span><span class="token punctuation">(</span><span class="token string">"Bye"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"'Bye' отсутствует в stroka\n"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+</body>
+
+</html>
