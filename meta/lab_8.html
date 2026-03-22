@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="разработка-шаблонного-стека-и-использование-stl-для-обработки-данных----omit-in-toc---">8 - Разработка шаблонного стека и использование STL для обработки данных <!-- omit in toc --></h1>
+<blockquote>
+<p>Лабораторная работа 8 для студентов курса 2 семестра кафедры ИУ5 МГТУ им Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Начало работы</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Задание</a>
+<ul>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0-%D1%81%D1%82%D0%B5%D0%BA%D0%B0">Задание 1. Реализация шаблонного класса стека</a>
+<ul>
+<li><a href="#11-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-listnode">1.1 Структура ListNode</a></li>
+<li><a href="#12-%D0%BA%D0%BB%D0%B0%D1%81%D1%81-mystack">1.2 Класс MyStack</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-2-%D1%80%D0%B0%D0%B7%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D1%87%D0%B8%D1%81%D0%BB%D0%B0-%D0%BD%D0%B0-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%8B%D0%B5-%D0%BC%D0%BD%D0%BE%D0%B6%D0%B8%D1%82%D0%B5%D0%BB%D0%B8-%D1%81-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BC-%D1%81%D1%82%D0%B5%D0%BA%D0%B0">Задание 2. Разложение числа на простые множители с использованием стека</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-3-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B8%D0%B7-%D1%81%D1%82%D0%B5%D0%BA%D0%B0-%D0%B2-%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B9%D0%BD%D0%B5%D1%80%D1%8B-stl-%D0%B8-%D0%B8%D1%85-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">Задание 3. Перенос данных из стека в контейнеры STL и их обработка</a>
+<ul>
+<li><a href="#31-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81-%D0%B2-vector-%D0%B8-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2">3.1 Перенос в <code>vector</code> и использование алгоритмов</a></li>
+<li><a href="#32-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81-%D0%B2-list-%D0%B8-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2">3.2 Перенос в <code>list</code> и использование алгоритмов</a></li>
+<li><a href="#33-%D0%BF%D0%B5%D1%80%D0%B5%D0%BD%D0%BE%D1%81-%D0%B2-map-%D0%B8-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2">3.3 Перенос в <code>map</code> и использование алгоритмов</a></li>
+<li><a href="#34-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-%D0%BD%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D1%8C%D0%BA%D0%B8%D0%BC%D0%B8-%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B9%D0%BD%D0%B5%D1%80%D0%B0%D0%BC%D0%B8">3.4. Использование алгоритмов для работы с несколькими контейнерами</a></li>
+</ul>
+</li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-4-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%D1%83">Задание 4. Дополнительные задания (по выбору)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8E">Требования к оформлению</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B">Контрольные вопросы</a></li>
+</ul>
+<h2 id="цель-работы">Цель работы</h2>
+<ul>
+<li>Разработать шаблонный класс <code>MyStack</code>, реализующий структуру данных «стек» на основе динамического связного списка.</li>
+<li>Освоить использование стандартной библиотеки шаблонов <strong>STL</strong>: контейнеры <code>vector</code>, <code>list</code>, <code>map</code> и алгоритмы сортировки, поиска, преобразования.</li>
+<li>Освоить применение <em><strong>функторов</strong></em> и <em><strong>лямбда-выражений</strong></em> для кастомизации алгоритмов <strong>STL</strong>.</li>
+<li>Продемонстрировать интеграцию собственной структуры данных с контейнерами и алгоритмами <strong>STL</strong>.</li>
+</ul>
+<h2 id="начало-работы">Начало работы</h2>
+<p>Зайдите в свою локальную директорию с репозиторием для выполнения лабораторных работ. Заберите ветку с соответствующей лабораторной работой из общего репозитория:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream
+</code></pre>
+<p><strong>или</strong></p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream lab_8
+</code></pre>
+<p>Переключитесь на ветку с текущей лабораторной работой:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git checkout lab_8
+</code></pre>
+<p>Свяжите ветку локального репозитория с вашим удаленным репозиторием:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git push --set-upstream origin lab_8
+</code></pre>
+<h2 id="задание">Задание</h2>
+<h3 id="задание-1.-реализация-шаблонного-класса-стека">Задание 1. Реализация шаблонного класса стека</h3>
+<h4 id="структура-listnode">1.1 Структура ListNode</h4>
+<p>Разработайте структуру <code>ListNode</code>, представляющую узел связного списка:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> T<span class="token operator">&gt;</span>
+<span class="token keyword">struct</span> ListNode <span class="token punctuation">{</span>
+    T data<span class="token punctuation">;</span>
+    ListNode<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token operator">*</span> next<span class="token punctuation">;</span>
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> value<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">data</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="класс-mystack">1.2 Класс MyStack</h4>
+<p>Разработайте шаблонный класс <code>MyStack</code>, реализующий стек на основе односвязного списка.</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">private</span><span class="token operator">:</span>
+  ListNode<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token operator">*</span> top<span class="token punctuation">;</span> <span class="token comment">//  указатель на вершину стека.</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token function">MyStack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                   <span class="token comment">// конструктор по умолчанию.</span>
+  <span class="token operator">~</span><span class="token function">MyStack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                  <span class="token comment">// деструктор (освобождает память).</span>
+  <span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// добавляет элемент на вершину.</span>
+  <span class="token keyword">bool</span> <span class="token function">pop</span><span class="token punctuation">(</span>T<span class="token operator">&amp;</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">// удаляет элемент с вершины, возвращает его значение.</span>
+  <span class="token keyword">bool</span> <span class="token function">peek</span><span class="token punctuation">(</span>T<span class="token operator">&amp;</span> value<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>   <span class="token comment">// возвращает значение верхнего элемента без удаления.</span>
+  <span class="token keyword">bool</span> <span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>        <span class="token comment">// проверка на пустоту.</span>
+  <span class="token keyword">int</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>            <span class="token comment">// возвращает количество элементов.</span>
+  <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token comment">// очищает стек.</span>
+  <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>          <span class="token comment">// выводит содержимое стека (от вершины ко дну).</span>
+</code></pre>
+<p><em>Требования:</em></p>
+<ul>
+<li>Все методы реализуются в заголовочном файле <code>MyStack.h</code>.</li>
+<li>Класс должен быть шаблонным и работать с <strong>любым типом данных</strong>.</li>
+</ul>
+<h4 id="задание-2.-разложение-числа-на-простые-множители-с-использованием-стека">Задание 2. Разложение числа на простые множители с использованием стека</h4>
+<p>Разработайте функцию:</p>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">void</span> <span class="token function">Multipliers</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> MyStack<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> stack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Функция должна раскладывать число n на простые множители и помещать их в стек (в порядке нахождения, начиная с наименьшего делителя).</p>
+<p>В <code>main()</code>:</p>
+<ul>
+<li>Для числа N = 3960 вызовите <code>Multipliers()</code>.</li>
+<li>Выведите множители двумя способами:
+<ul>
+<li>по убыванию (от вершины ко дну стека);</li>
+<li>по возрастанию (от дна к вершине).</li>
+</ul>
+</li>
+</ul>
+<p>Пример вывода:</p>
+<pre class=" language-sh"><code class="prism  language-sh">3960 = 11 * 5 * 3 * 3 * 2 * 2 * 2
+3960 = 2 * 2 * 2 * 3 * 3 * 5 * 11
+</code></pre>
+<blockquote>
+<p>Примечание:</p>
+<p>Стек является структурой <code>LIFO</code> (Last In – First Out), поэтому порядок вывода элементов зависит от способа извлечения.</p>
+</blockquote>
+<h4 id="задание-3.-перенос-данных-из-стека-в-контейнеры-stl-и-их-обработка">Задание 3. Перенос данных из стека в контейнеры STL и их обработка</h4>
+<p>После выполнения <strong>задания 2</strong> в стеке <code>MyStack&lt;int&gt;</code> содержатся множители числа 3960. Используйте этот стек как единственный источник данных для выполнения следующих подзаданий.</p>
+<h5 id="перенос-в-vector-и-использование-алгоритмов">3.1 Перенос в <code>vector</code> и использование алгоритмов</h5>
+<p>3.1.1.	Создайте <code>std::vector&lt;int&gt;</code> и перенесите в него все элементы из стека в порядке от дна к вершине (то есть в возрастающем порядке множителей: 2, 2, 2, 3, 3, 5, 11).</p>
+<p>3.1.2.	Используя алгоритмы <strong>STL</strong> и <strong>лямбда-выражения</strong>, выполните:</p>
+<ul>
+<li>Сортировку вектора по убыванию.</li>
+<li>Подсчёт количества элементов, равных заданному значению (например, сколько раз встречается множитель 2).</li>
+<li>Преобразование каждого элемента вектора в его квадрат (с сохранением в новый вектор).</li>
+<li>Вывод всех элементов вектора с помощью <code>std::for_each</code> и <code>лямбды</code>.</li>
+</ul>
+<p>3.1.3.	Для сортировки по убыванию продемонстрируйте использование <code>функтора</code> (отдельный класс с перегруженным <code>operator()</code>).</p>
+<h5 id="перенос-в-list-и-использование-алгоритмов">3.2 Перенос в <code>list</code> и использование алгоритмов</h5>
+<p>3.2.1.	Создайте <code>std::list&lt;int&gt;</code> и перенесите в него все элементы из исходного стека (также в возрастающем порядке).<br>
+3.2.2.	Используя алгоритмы <strong>STL</strong>, выполните:</p>
+<ul>
+<li>Удаление всех элементов с заданным значением (например, удалить все двойки) с помощью <code>std::remove_if</code> и <code>лямбды</code>.</li>
+<li>Поиск элемента, равного заданному значению, с помощью <code>std::find</code>. Выведите найденный элемент или сообщение об отсутствии.</li>
+<li>Подсчёт количества элементов, удовлетворяющих условию (например, больше 3), с помощью <code>std::count_if</code> и лямбды.</li>
+</ul>
+<h5 id="перенос-в-map-и-использование-алгоритмов">3.3 Перенос в <code>map</code> и использование алгоритмов</h5>
+<p>Контейнер <code>std::map</code> хранит элементы в отсортированном виде по ключу.</p>
+<p>3.3.1.	Создайте <code>std::map&lt;int, int&gt;</code>, где <em>ключ</em> — это множитель, а <em>значение</em> — количество его вхождений. Заполните отображение, анализируя данные из исходного стека.</p>
+<p>3.3.2.	Используя алгоритмы <strong>STL</strong>, выполните:</p>
+<ul>
+<li>Вывод содержимого <strong>map</strong> в формате: <em><code>множитель -&gt; количество</code></em>.</li>
+<li>Поиск элемента по ключу с помощью <code>std::find_if</code> (или метода <code>find</code>) и вывод результата.</li>
+<li>Подсчёт количества элементов в <strong>map</strong>, у которых значение (количество) больше 1, с помощью <code>std::count_if</code> и <code>лямбды</code>.</li>
+</ul>
+<h5 id="использование-алгоритмов-для-работы-с-несколькими-контейнерами">3.4. Использование алгоритмов для работы с несколькими контейнерами</h5>
+<p>3.4.1.	Создайте два вектора: один с исходными множителями, второй — с их квадратами (из п. 3.1.2).</p>
+<p>3.4.2.	Используя алгоритм <code>std::inner_product</code>, вычислите скалярное произведение этих двух векторов.</p>
+<p>3.4.3.	Используя <code>std::transform</code> и <code>лямбду</code>, создайте третий вектор, содержащий суммы соответствующих элементов первых двух векторов.</p>
+<h4 id="задание-4.-дополнительные-задания-по-выбору">Задание 4. Дополнительные задания (по выбору)</h4>
+<p>Выполняется для получения повышенной оценки.</p>
+<p>4.1	Реализуйте <code>функтор</code> для сравнения элементов при сортировке по убыванию (использовать в <code>std::sort</code> вместо <code>лямбды</code>).</p>
+<p>4.2	Напишите шаблонную функцию <code>void printContainer(const Container&amp; cont)</code>, которая выводит содержимое любого контейнера <strong>STL</strong> (<code>vector</code>, <code>list</code>, <code>map</code>) с использованием <code>итераторов</code> и <code>лямбды</code>.</p>
+<p>4.3	Используйте <code>std::accumulate</code> для вычисления произведения всех множителей (должно получиться исходное число 3960).</p>
+<h2 id="требования-к-оформлению">Требования к оформлению</h2>
+<ol>
+<li>Весь код должен быть размещён в файлах:</li>
+</ol>
+<ul>
+<li>MyStack.h – реализация шаблонного стека.</li>
+<li>main.cpp – функция <code>main()</code> и все задания.</li>
+</ul>
+<!-- omit in toc - &#1050;&#1086;&#1076; &#1076;&#1086;&#1083;&#1078;&#1077;&#1085; &#1073;&#1099;&#1090;&#1100; &#1089;&#1085;&#1072;&#1073;&#1078;&#1105;&#1085; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1103;&#1084;&#1080;, &#1087;&#1086;&#1103;&#1089;&#1085;&#1103;&#1102;&#1097;&#1080;&#1084;&#1080; &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1072;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1084;&#1086;&#1074; &#1080; &#1083;&#1103;&#1084;&#1073;&#1076;. -->
+<ul>
+<li>Вывод программы должен быть структурирован и нагляден:</li>
+</ul>
+<pre class=" language-sh"><code class="prism  language-sh">========== ЗАДАНИЕ 2: Разложение на множители ==========
+3960 = 11 * 5 * 3 * 3 * 2 * 2 * 2
+3960 = 2 * 2 * 2 * 3 * 3 * 5 * 11
+
+========== ЗАДАНИЕ 3.1: Работа с vector ==========
+Исходный вектор (возрастающий): 2 2 2 3 3 5 11
+Вектор после сортировки по убыванию: 11 5 3 3 2 2 2
+Количество двоек: 3
+Квадраты элементов: 4 4 4 9 9 25 121
+Вывод через for_each: 11 5 3 3 2 2 2
+
+========== ЗАДАНИЕ 3.2: Работа с list ==========
+Исходный список: 2 2 2 3 3 5 11
+Список после удаления двоек: 3 3 5 11
+Поиск элемента 5: найден
+Количество элементов &gt; 3: 2
+
+========== ЗАДАНИЕ 3.3: Работа с map ==========
+Содержимое map (множитель -&gt; количество):
+2 -&gt; 3
+3 -&gt; 2
+5 -&gt; 1
+11 -&gt; 1
+Поиск ключа 3: найден, количество = 2
+Количество множителей, встречающихся более 1 раза: 2
+
+========== ЗАДАНИЕ 3.4: Работа с несколькими контейнерами ==========
+Вектор множителей: 2 2 2 3 3 5 11
+Вектор квадратов: 4 4 4 9 9 25 121
+Скалярное произведение: 2*4 + 2*4 + ... = 4+4+4+9+9+25+121 = ...// вычисляется программно
+Вектор сумм: 6 6 6 12 12 30 132
+</code></pre>
+<h2 id="контрольные-вопросы">Контрольные вопросы</h2>
+<ol>
+<li>Какова сложность операций <code>push</code> и <code>pop</code> в вашей реализации стека?</li>
+<li>В чём разница между <code>std::vector</code> и <code>std::list</code>? Когда какой контейнер предпочтительнее?</li>
+<li>Что такое <code>лямбда-выражение</code>? Приведите синтаксис и пример использования.</li>
+<li>Что такое <code>функтор</code>? В чём его преимущество перед обычной функцией?</li>
+<li>Как работает алгоритм <code>std::remove_if</code>? Почему он не удаляет элементы напрямую?</li>
+<li>В чём особенность контейнера <code>std::map</code>? Как реализован поиск по ключу?</li>
+<li>Какие алгоритмы <strong>STL</strong> вы использовали? Для каких задач они применялись?</li>
+<li>В чём отличие алгоритмов <strong>STL</strong> от методов контейнеров?</li>
+</ol>
+</div>
+</body>
+
+</html>
