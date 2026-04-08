@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="работа-с-полиномами-классы-term-и-polynomial----omit-in-toc---">7 -  Работа с полиномами (классы Term и Polynomial) <!-- omit in toc --></h1>
+<blockquote>
+<p>Лабораторная работа 7 для студентов курса “Программирование на основе классов и шаблонов” 2 семестра кафедры ИУ5 МГТУ им Н.Э. Баумана.</p>
+</blockquote>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Начало работы</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Задание</a></li>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-term">Класс <code>Term</code></a></li>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-polynomial">Класс <code>Polynomial</code></a></li>
+<li><a href="#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8E">Требования к оформлению</a></li>
+<li><a href="#%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B">Контрольные вопросы</a></li>
+</ul>
+<h2 id="цель-работы">Цель работы</h2>
+<ul>
+<li>Разработать классы для представления полиномов;</li>
+<li>Освоить перегрузку операторов ввода/вывода;</li>
+<li>Закрепить навыки работы с динамической памятью;</li>
+<li>Научиться разбирать строковые выражения;</li>
+<li>Закрепить принципы объектно-ориентированного программирования.</li>
+</ul>
+<h2 id="начало-работы">Начало работы</h2>
+<p>Зайдите в свою локальную директорию с репозиторием для выполнения лабораторных работ. Заберите ветку с соответствующей лабораторной работой из общего репозитория:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream
+</code></pre>
+<p><strong>или</strong></p>
+<pre class=" language-sh"><code class="prism  language-sh">git pull upstream lab_7
+</code></pre>
+<p>Переключитесь на ветку с текущей лабораторной работой:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git checkout lab_7
+</code></pre>
+<p>Свяжите ветку локального репозитория с вашим удаленным репозиторием:</p>
+<pre class=" language-sh"><code class="prism  language-sh">git push --set-upstream origin lab_7
+</code></pre>
+<h2 id="задание">Задание</h2>
+<p>Написать программу для ввода и обработки полиномов, состоящих из термов. Необходимо реализовать два класса:</p>
+<ul>
+<li><code>Term</code> — одночлен;</li>
+<li><code>Polynomial</code> — полином.</li>
+</ul>
+<blockquote>
+<p>ОСТОРОЖНО</p>
+<p><em>В работе запрещено использование контейнеров STL (vector, list и др.).<br>
+В данной работе можно использовать самостоятельно разработанный вектор из предыдущей работы.</em></p>
+</blockquote>
+<p><strong>Ввод полинома</strong></p>
+<ul>
+<li>термы полинома могут вводиться в любом порядке;</li>
+<li>во вводимом терме могут присутствовать отрицательные коэффициенты, <em>например:</em> <code>-1</code>;</li>
+<li>терм (член полинома одного порядка) может складываться с другим термом. Например: <code>3x^2 – x^2, -3x^2 + x^2</code>;</li>
+<li>пробелы при вводе могут появляться где угодно.</li>
+</ul>
+<p><strong>Обратите внимание</strong>, что по заданию вы должны уметь работать со строками такого вида:</p>
+<pre class=" language-sh"><code class="prism  language-sh">3x^2 - x^2 -    3x^2 + x ^2 + 5x^5   - 4x^3 +x^2 - 7
+</code></pre>
+<p>Пробелы расставлены в случайном порядке.</p>
+<p>Результат разбора такой строки - полином.</p>
+<p>В перегрузке оператора <code>ввода</code> необходимо:</p>
+<ul>
+<li>разобрать строку на отдельные термы;</li>
+<li>передать разбор каждого терма классу <code>Term</code>;</li>
+<li>последовательно добавить термы в полином с приведением подобных членов.</li>
+</ul>
+<p>При добавлении терма допускается использовать перегрузку сложения полинома с термом.</p>
+<p>Для разбора на термы можно использовать самостоятельно разработанный вектор из предыдущей работы или динамический массив.</p>
+<blockquote>
+<p>ОСТОРОЖНО</p>
+<p><em>Запрещено выполнять парсинг отдельного терма внутри класса <code>Polynomial</code>.<br>
+Парсинг конкретного терма необходимо делегировать классу <code>Term</code>.<br>
+Иными словами, полином должен только детектировать термы в строке.</em></p>
+</blockquote>
+<hr>
+<h2 id="класс-term">Класс <code>Term</code></h2>
+<p><strong>Общая характеристика</strong></p>
+<p>Класс представляет одночлен вида:</p>
+<pre class=" language-sh"><code class="prism  language-sh">ax^n
+</code></pre>
+<p><strong>Поля класса</strong></p>
+<ul>
+<li><code>coef</code> — коэффициент;</li>
+<li><code>power</code> — степень.</li>
+</ul>
+<p><strong>Методы</strong></p>
+<ul>
+<li>Конструктор(ы)
+<ul>
+<li>без параметров, например для представления <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><msup><mi>x</mi><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">0x^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">0</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span>;</li>
+<li>с одним параметром, например <code>3</code> -&gt; <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>x</mi><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">3x^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span>;</li>
+<li>с двумя параметрами, <em>например <code>3 2</code> -&gt; <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">3x^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></em>;</li>
+</ul>
+</li>
+<li>Оператор сложения (для одночленов одинаковой степени);</li>
+<li>Оператор ввода;</li>
+<li>Оператор вывода
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>x</mi><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">3x^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span> как <code>3</code>;</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>x</mi><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">3x^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> как <code>3x</code>;</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mi>x</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">1x^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span> как <code>x^3</code>;</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn><msup><mi>x</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">-3x^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.897438em; vertical-align: -0.08333em;"></span><span class="mord">−</span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span> как <code>-3x^3</code>.</li>
+</ul>
+</li>
+<li>Дружественный класс <code>Polynomial</code>.</li>
+</ul>
+<p>Продемонстрируйте работу с классом <code>Term</code> в функции <code>main()</code> отдельно от <code>Polynomial</code>.</p>
+<hr>
+<h2 id="класс-polynomial">Класс <code>Polynomial</code></h2>
+<p><strong>Общая характеристика</strong></p>
+<p><strong>Полином</strong> — это сумма одночленов.</p>
+<p><strong>Поля класса</strong></p>
+<pre class=" language-cpp"><code class="prism  language-cpp">	Term<span class="token operator">*</span> terms<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> size<span class="token punctuation">;</span>		<span class="token comment">// фактический размер</span>
+    <span class="token keyword">int</span> capacity<span class="token punctuation">;</span>	<span class="token comment">// max выделенная память для массива</span>
+	<span class="token keyword">bool</span> order<span class="token punctuation">;</span>		<span class="token comment">// true — по возрастанию, false — по убыванию</span>
+
+</code></pre>
+<p><strong>Требования</strong></p>
+<ul>
+<li>Хранение в виде динамического массива или списка;</li>
+<li>Автоматическое упрощение (объединение одинаковых степеней);</li>
+<li>Сортировка по убыванию/возрастанию степеней.</li>
+</ul>
+<p><strong>Методы</strong></p>
+<ul>
+<li>Конструктор(ы)
+<ul>
+<li>без параметров для представления полинома <code>0</code>;</li>
+<li>с одним целым параметром, например <code>3</code>, для представления полинома <code>3</code>.</li>
+<li>с одним параметром-термом, например <code>Term(3, 2)</code>, для представления полинома <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">3x^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.814108em; vertical-align: 0em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>.</li>
+<li>Конструктор копирования</li>
+</ul>
+</li>
+<li>Добавление одночлена;</li>
+<li>Удаление одночлена;</li>
+<li>Приведение подобных членов;</li>
+<li>Вычисление значения при <code>x</code>.</li>
+</ul>
+<p><strong>Операторы</strong></p>
+<ul>
+<li><code>+</code> — сложение;</li>
+<li><code>+=</code>;</li>
+<li><code>-</code> — вычитание;</li>
+<li><code>-=</code>;</li>
+<li><code>*</code> — умножение;</li>
+<li><code>*=</code>;</li>
+<li><code>=</code> - присваивание;</li>
+<li><code>==</code> — сравнение;</li>
+<li><code>&gt;&gt;</code> - ввод;</li>
+<li><code>&lt;&lt;</code> — вывод.</li>
+</ul>
+<p>Продемонстрируйте работу с классом <code>Polynomial</code> в функции <code>main()</code>.</p>
+<hr>
+<blockquote>
+<p>Важно:</p>
+<p><em>Классы <code>Term</code> и <code>Polynomial</code> должны быть упакованы в отдельную статическую библиотеку.</em></p>
+</blockquote>
+<hr>
+<h2 id="требования-к-оформлению">Требования к оформлению</h2>
+<ul>
+<li>Код разбить на файлы:
+<ul>
+<li>Term.h / Term.cpp</li>
+<li>Polynomial.h / Polynomial.cpp</li>
+<li>main.cpp</li>
+</ul>
+</li>
+<li>Реализовать перегрузку операторов.</li>
+</ul>
+<hr>
+<h2 id="контрольные-вопросы">Контрольные вопросы</h2>
+<ol>
+<li>Что такое полином?</li>
+<li>Как реализовать сложение полиномов?</li>
+<li>Зачем нужна перегрузка операторов?</li>
+<li>Как избежать дублирования степеней?</li>
+<li>Как реализовать умножение полиномов?</li>
+<li>Как организован разбор строки на термы?</li>
+</ol>
+</div>
+</body>
+
+</html>
