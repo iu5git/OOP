@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="домашняя-работа-по-курсу-программирование-на-основе-классов-и-шаблонов-2-семестра-кафедры-иу5-мгту-им-н.э.-баумана.---omit-in-toc---">Домашняя работа по курсу “Программирование на основе классов и шаблонов” 2 семестра кафедры ИУ5 МГТУ им Н.Э. Баумана.<!-- omit in toc --></h1>
+<h2 id="содержание----omit-in-toc---">Содержание <!-- omit in toc --></h2>
+<ul>
+<li><a href="#%D1%86%D0%B5%D0%BB%D0%B8-%D0%B8-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">Цели и задачи</a></li>
+<li><a href="#%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BB%D0%B0%D1%81%D1%81-containert">Шаблонный класс <code>Container&lt;T&gt;</code></a>
+<ul>
+<li><a href="#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%83-container">Требования к классу <code>Container</code>:</a></li>
+</ul>
+</li>
+<li><a href="#%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BB%D0%B0%D1%81%D1%81-databaset">Шаблонный класс <code>Database&lt;T&gt;</code></a>
+<ul>
+<li><a href="#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%83-database">Требования к классу <code>Database</code>:</a></li>
+</ul>
+</li>
+<li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%8B-%D0%B4%D0%BB%D1%8F-%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F">Классы для хранения</a></li>
+<li><a href="#%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Демонстрация работы</a></li>
+</ul>
+<h2 id="цели-и-задачи">Цели и задачи</h2>
+<p>Освоить разработку шаблонных классов, работу с динамической памятью и применение стандартных алгоритмов STL.</p>
+<blockquote>
+<p><em>Разрешено использование алгоритмов STL (std::sort, std::find, std::copy_if и др.),</em><br>
+<em>но <strong>запрещено</strong> использование контейнеров STL (vector, list и т.д.).</em></p>
+</blockquote>
+<h2 id="шаблонный-класс-containert">Шаблонный класс <code>Container&lt;T&gt;</code></h2>
+<p>Реализуйте шаблонный класс-контейнер для хранения набора объектов. Внутри должен храниться динамический массив, который автоматически расширяется при добавлении<br>
+новых элементов и может сжиматься при удалении.</p>
+<h3 id="требования-к-классу-container">Требования к классу <code>Container</code>:</h3>
+<ul>
+<li>Конструкторы:
+<ul>
+<li>по умолчанию (создаёт пустой контейнер);</li>
+<li>копирования;</li>
+<li>перемещения;</li>
+</ul>
+</li>
+<li>Операторы присваивания (копирующий и перемещающий);</li>
+<li>Деструктор (освобождает память);</li>
+<li><code>operator[]</code> — доступ по индексу (с проверкой границ, при ошибке — исключение или сообщение);</li>
+<li><code>operator==</code> — сравнение двух контейнеров (поэлементно);</li>
+<li><code>operator&lt;</code> — лексикографическое сравнение (как у строк);</li>
+<li><code>push(const T&amp; value)</code> — добавление элемента в конец;</li>
+<li><code>pop()</code> — удаление последнего элемента;</li>
+<li><code>delete_at(size_t index)</code> — удаление элемента по индексу;</li>
+<li><code>clear()</code> — полная очистка контейнера;</li>
+<li><code>resize()</code> - должен увеличивать capacity при переполнении и уменьшать при<br>
+необходимости. <code>resize()</code> вызывается автоматически:
+<ul>
+<li>при переполнении (capacity увеличивается, например, в 2 раза);</li>
+<li>при значительном уменьшении размера (например, если size &lt; capacity / 4);</li>
+</ul>
+</li>
+<li><code>Iterator begin()</code>;</li>
+<li><code>Iterator end()</code>;</li>
+<li>Операторы <code>&lt;&lt;</code> и <code>&gt;&gt;</code> для вывода в поток и ввода из потока.</li>
+</ul>
+<p>Для сильных студентов - реализовать свой итератор в классе <code>Container</code>.<br>
+Допускается использование указателей как итераторов (<code>T*</code>).</p>
+<h2 id="шаблонный-класс-databaset">Шаблонный класс <code>Database&lt;T&gt;</code></h2>
+<p>Класс-обёртка над <code>Container&lt;T&gt;</code>, который добавляет логику работы с файлами и<br>
+сортировку.</p>
+<h3 id="требования-к-классу-database">Требования к классу <code>Database</code>:</h3>
+<ul>
+<li>Правило пяти (все специальные методы);</li>
+<li><code>read_from_file(filename)</code> — чтение данных из файла;</li>
+<li><code>write_to_file(filename)</code> — запись данных в файл;</li>
+<li><code>sort_qsort(comparator)</code> — сортировка с использованием собственной реализации быстрой сортировки (<code>quicksort</code> с шаблонным функтором);</li>
+<li><code>find(value)</code> — поиск элемента с использованием <code>std::find</code>. Возвращает <em>индекс</em> элемента или -1, если элемент не найден;</li>
+<li><code>add(value)</code> — добавление элемента;</li>
+<li><code>remove_at(index)</code> — удаление по индексу;</li>
+<li><code>remove_last()</code> — удаление последнего;</li>
+<li><code>clear()</code> — очистка;</li>
+<li><code>display()</code> — вывод на экран;</li>
+<li><code>input_from_console()</code> — ввод с клавиатуры;</li>
+</ul>
+<p>Каждый метод <code>Database</code> должен вызывать соответствующий метод <code>Container</code> (реализация не дублируется)</p>
+<ul>
+<li><code>add()</code> → <code>push()</code>;</li>
+<li><code>remove_last()</code> → <code>pop()</code>;</li>
+<li><code>remove_at()</code> → <code>delete_at()</code>.</li>
+</ul>
+<h2 id="классы-для-хранения">Классы для хранения</h2>
+<p>Вам нужно продемонстрировать работу <code>Database</code> с двумя типами данных:</p>
+<ul>
+<li><strong>Класс <code>Planet</code></strong> (описан ниже)</li>
+<li><strong>Ваш класс из 3-й лабораторной работы</strong></li>
+</ul>
+<p><strong>Класс <code>Planet</code></strong></p>
+<p>Поля:</p>
+<ul>
+<li>название (строка);</li>
+<li>диаметр (вещественное число);</li>
+<li>наличие жизни (булевский флаг);</li>
+<li>количество спутников (целое число);</li>
+</ul>
+<p>Реализовать:</p>
+<ul>
+<li>конструкторы (по умолчанию, копирования, перемещения);</li>
+<li>операторы присваивания;</li>
+<li><code>operator==</code></li>
+<li><code>operator&lt;</code> (сравнение по названию);</li>
+<li>корректную работу с <code>bool</code> (вывод: yes/no или true/false);</li>
+<li>операторы <code>&lt;&lt;</code> и <code>&gt;&gt;</code> для ввода/вывода;</li>
+<li>проверку ввода;</li>
+</ul>
+<h2 id="демонстрация-работы">Демонстрация работы</h2>
+<p>В функции RunApplication() продумать вызов меню, где обеспечить возможность:</p>
+<ol>
+<li>Создать <strong><code>Database&lt;Planet&gt;</code></strong> и <strong><code>Database&lt;MyClass&gt;</code></strong>.</li>
+<li>Добавить несколько элементов вручную.</li>
+<li>Вывести содержимое.</li>
+<li>Продемонстрировать сортировку (обоими методами).</li>
+<li>Сформировать новую базу данных, скопировав элементы из существующей с помощью <code>std::copy_if</code> и <code>лямбда</code>-выражения.</li>
+<li>Продемонстрировать поиск элемента.</li>
+<li>Сохранить данные в файл.</li>
+<li>Очистить базу, прочитать из файла и снова вывести (проверка сохранения).</li>
+</ol>
+</div>
+</body>
+
+</html>
