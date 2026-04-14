@@ -15,7 +15,7 @@
 	 - [Лабораторная работа 7](https://iu5git.github.io/OOP/meta/lab_7.html)
 	 - [Лабораторная работа 8](https://iu5git.github.io/OOP/meta/lab_8.html)
  - Домашняя работа
-	 - [Домашняя работа](https://iu5git.github.io/OOP/meta/homeWork.html)
+	 - [Домашняя работа](https://iu5git.github.io/OOP/meta/homework.html)
  - Практика
      - [Практика](https://iu5git.github.io/OOP/meta/practice.html)
 
