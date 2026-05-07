@@ -213,6 +213,24 @@ int main() {
     v1.pop(2);
     std::cout << "v1 после удаления элемента с индексом 2: " << v1 << std::endl;
 
+    char* var1;
+    var1 = new char[std::strlen("Тест1") + 1];
+    std::strcpy(var1,"Тест1");
+    Container<char*> testContainer;
+    testContainer.push(var1);
+    delete[] var1;
+    std::cout << testContainer << '\n';
+
+    char* var2;
+    var2 = new char[]{"Тест2"};
+    testContainer.push(var2);
+    delete[] var2;
+    std::cout << testContainer << '\n';
+
+    testContainer.del(0);
+
+    std::cout << testContainer << '\n';
+
 
     // ===== Set<char*> =====
     Set<char*> s("Yes"), s1("Hello!"), s2;
