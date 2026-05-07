@@ -22,6 +22,7 @@
 <ul>
 <li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-container">Класс <code>Container</code></a></li>
 <li><a href="#%D0%BA%D0%BB%D0%B0%D1%81%D1%81-set">Класс <code>Set</code></a></li>
+<li><a href="#%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">Пример использования</a></li>
 </ul>
 </li>
 </ul>
@@ -176,7 +177,7 @@
 </ul>
 </blockquote>
 <hr>
-<p><strong>Пример использования</strong></p>
+<h3 id="пример-использования">Пример использования</h3>
 <pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"containers/Container.h"</span></span>
@@ -206,6 +207,24 @@
 
     v1<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"v1 после удаления элемента с индексом 2: "</span> <span class="token operator">&lt;&lt;</span> v1 <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">char</span><span class="token operator">*</span> var1<span class="token punctuation">;</span>
+    var1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span>std<span class="token operator">::</span><span class="token function">strlen</span><span class="token punctuation">(</span><span class="token string">"Тест1"</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span><span class="token function">strcpy</span><span class="token punctuation">(</span>var1<span class="token punctuation">,</span><span class="token string">"Тест1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Container<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">&gt;</span> testContainer<span class="token punctuation">;</span>
+    testContainer<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>var1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> var1<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> testContainer <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">char</span><span class="token operator">*</span> var2<span class="token punctuation">;</span>
+    var2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"Тест2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    testContainer<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> var2<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> testContainer <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
+
+    testContainer<span class="token punctuation">.</span><span class="token function">del</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> testContainer <span class="token operator">&lt;&lt;</span> <span class="token string">'\n'</span><span class="token punctuation">;</span>
 
 
     <span class="token comment">// ===== Set&lt;char*&gt; =====</span>
